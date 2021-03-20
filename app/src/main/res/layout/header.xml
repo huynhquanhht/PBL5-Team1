@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="#A5D7ED"
+        android:paddingTop="32dp"
+        android:paddingLeft="32dp"
+        android:paddingStart="32dp"
+        tools:ignore="RtlSymmetry">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/avatarImageView"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginTop="16dp"
+            android:src="@android:drawable/ic_menu_send"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#2196F3"/>
+
+        <TextView
+            android:id="@+id/nameTextVew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/avatarImageView"
+            android:layout_marginTop="16dp"
+            android:text="aaaaaaaaaaaaaa"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/gmailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameTextVew"
+            android:layout_marginTop="8dp"
+            android:text="aaaaaaaaaaaaaa"
+            android:textSize="17dp"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.PLB" parent="Theme.Design.Light.NoActionBar">
+    </style>
+    <style name="Theme.PLB.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.PLB.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.PLB.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
