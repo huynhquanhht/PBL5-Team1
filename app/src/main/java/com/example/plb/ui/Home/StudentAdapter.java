@@ -71,6 +71,7 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public interface OnClickListener {
+        String a = "";
         void onClick(Student student, int position);
     }
 

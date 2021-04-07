@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/nameDog"
-        android:text="Bạch Cốt Tinh"
+        android:text="Huynh Nga"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:textSize="24sp"
@@ -119,7 +119,7 @@
             android:id="@+id/originTextView"
             android:textSize="17sp"
             android:textColor="@color/black"
-            android:text="Cành Lá Sơn"
+            android:text="Da Na"
             android:layout_weight="6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
@@ -167,7 +167,7 @@
             android:id="@+id/heightTextView"
             android:textSize="17sp"
             android:textColor="@color/black"
-            android:text="Ăn thịt chó"
+            android:text="Doc Sach"
             android:layout_weight="6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
