@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.plb.R;
-import com.example.plb.model.Class;
+import com.example.plb.model.ClassRoom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private ScheduleAdapter mScheduleAdapter;
-    private List<Class> mClassList = new ArrayList<>();
+    private List<ClassRoom> mClassRoomList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +30,24 @@ public class ScheduleActivity extends AppCompatActivity {
     private void init() {
         mRecyclerView = findViewById(R.id.scheduleRecyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mScheduleAdapter = new ScheduleAdapter(mClassList);
+        mScheduleAdapter = new ScheduleAdapter(mClassRoomList);
         mRecyclerView.setAdapter(mScheduleAdapter);
 
         fakeData();
     }
 
     public void fakeData() {
-        Class class1 = new Class("Toan", "7h - 8h", "1");
-        Class class2 = new Class("Ly", "8h -9h", "2");
-        Class class3 = new Class("Hoa", "9h - 10h", "3");
-        Class class4 = new Class("Anh", "10h - 11h", "4");
-        Class class5 = new Class("Van", "11h - 12h", "5");
+        ClassRoom classRoom1 = new ClassRoom("Toan", "7h - 8h", "1", 32);
+        ClassRoom classRoom2 = new ClassRoom("Ly", "8h -9h", "2", 32);
+        ClassRoom classRoom3 = new ClassRoom("Hoa", "9h - 10h", "3", 32);
+        ClassRoom classRoom4 = new ClassRoom("Anh", "10h - 11h", "4", 32);
+        ClassRoom classRoom5 = new ClassRoom("Van", "11h - 12h", "5", 32);
 
-        mClassList.add(class1);
-        mClassList.add(class2);
-        mClassList.add(class3);
-        mClassList.add(class4);
-        mClassList.add(class5);
+        mClassRoomList.add(classRoom1);
+        mClassRoomList.add(classRoom2);
+        mClassRoomList.add(classRoom3);
+        mClassRoomList.add(classRoom4);
+        mClassRoomList.add(classRoom5);
 
         mScheduleAdapter.notifyDataSetChanged();
 

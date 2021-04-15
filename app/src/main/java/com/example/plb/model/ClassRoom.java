@@ -1,14 +1,14 @@
 package com.example.plb.model;
 
-public class Class {
+public class ClassRoom {
 
     private String name;
 
     private String time;
 
-    private String countStudent;
+    private int countStudent;
 
-    public Class(String name, String time, String countStudent) {
+    public ClassRoom(String name, String room, String time, int countStudent) {
         this.name = name;
         this.time = time;
         this.countStudent = countStudent;
@@ -30,11 +30,11 @@ public class Class {
         this.time = time;
     }
 
-    public String getCountStudent() {
+    public int getCountStudent() {
         return countStudent;
     }
 
-    public void setCountStudent(String countStudent) {
+    public void setCountStudent(int countStudent) {
         this.countStudent = countStudent;
     }
 }

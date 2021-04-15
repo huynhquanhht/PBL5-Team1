@@ -30,14 +30,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize">
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/navButton"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:src="@drawable/ic_baseline_menu_24"-->
-<!--                        android:layout_height="wrap_content"/>-->
 
                     <TextView
-                        android:text="My App"
+                        android:text="DAS"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:layout_marginLeft="32dp"
@@ -59,138 +54,98 @@
                     android:background="#53C1F3"/>
 
                 <LinearLayout
-                    android:id="@+id/statusLinearLayout"
-                    android:layout_marginTop="170dp"
-                    android:padding="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_above="@+id/recyclerviewLn"
                     android:orientation="horizontal"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/bg_linearlayout"
-                    android:layout_width="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:weightSum="10"
                     android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Có mặt"/>
-                        <TextView
-                            android:id="@+id/countStudentTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="12"
-                            android:layout_marginTop="8dp"
-                            android:textStyle="bold"
-                            android:textColor="#059DE3"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_marginHorizontal="16dp"
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:text="Mã lớp"
+                        android:layout_weight="4"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_above="@+id/recyclerviewLn" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lần"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_weight="3"
+                        android:textSize="20sp"
+                        android:text="Khu"
+                        android:layout_marginHorizontal="4dp"
+                        android:layout_above="@+id/recyclerviewLn" />
 
-                        <TextView
-                            android:layout_marginTop="8dp"
-                            android:id="@+id/titleTextView"
-                            android:textStyle="bold"
-                            android:textColor="#059DE3"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0/0"/>
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_weight="3"
+                        android:textSize="20sp"
+                        android:text="Phòng"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginHorizontal="4dp"
+                        android:layout_above="@+id/recyclerviewLn" />
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lớp"/>
-
-                        <TextView
-                            android:id="@+id/dateTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1"
-                            android:textStyle="bold"
-                            android:textColor="#059DE3"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="8dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginLeft="16dp"
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ngày"/>
-
-                        <TextView
-                            android:layout_marginTop="8dp"
-                            android:text="1-2-2"
-                            android:textStyle="bold"
-                            android:textColor="#059DE3"
-                            android:id="@+id/idClassTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
 
                 </LinearLayout>
 
 
                 <LinearLayout
-                    android:id="@+id/toolLinearLayout"
-                    android:layout_below="@id/statusLinearLayout"
-                    android:layout_marginHorizontal="32dp"
+                    android:id="@+id/recyclerviewLn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="250dp"
+                    android:layout_above="@+id/attendanceButton"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="8dp"
+                    android:weightSum="10"
+                    android:layout_marginBottom="16dp">
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Nhập mã số"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/idClassRecyclerview"
+                        android:layout_width="0dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_height="250dp"
+                        android:layout_weight="4"
+                        android:layout_above="@+id/attendanceButton" />
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:layout_marginLeft="64dp"
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/buildingSpinner"
+                        android:layout_width="0dp"
+                        android:layout_marginHorizontal="4dp"
                         android:layout_height="wrap_content"
-                        android:text="Điểm danh thủ công"
-                        android:textColor="#059DE3"/>
+                        android:layout_weight="3"/>
+
+                    <Spinner
+                        android:id="@+id/serialSpinner"
+                        android:layout_marginHorizontal="4dp"
+                        android:layout_width="0dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"/>
+
 
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="16dp"
-                    android:id="@+id/recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_below="@id/toolLinearLayout"/>
+
+
 
                 <Button
+                    android:id="@+id/attendanceButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:text="Điểm danh"
                     android:layout_marginTop="16dp"
-                    android:layout_below="@+id/recyclerview"
-                    android:background="@drawable/buttons"/>
+                    android:background="@drawable/buttons"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="64dp"/>
 
             </RelativeLayout>
 

@@ -9,18 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plb.R;
-import com.example.plb.model.Class;
-import com.example.plb.ui.Home.StudentAdapter;
+import com.example.plb.model.ClassRoom;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<Class> mClasses = new ArrayList<>();
+    List<ClassRoom> mClassRooms = new ArrayList<>();
 
-    public ScheduleAdapter(List<Class> classes) {
-        mClasses = classes;
+    public ScheduleAdapter(List<ClassRoom> classRooms) {
+        mClassRooms = classRooms;
     }
 
     @NonNull
@@ -32,12 +31,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ScheduleHolder) holder).onBind(mClasses.get(position), position);
+        ((ScheduleHolder) holder).onBind(mClassRooms.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return mClasses.size();
+        return mClassRooms.size();
     }
 
     class ScheduleHolder extends RecyclerView.ViewHolder {
@@ -50,12 +49,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
         }
 
-        public void onBind(Class c, int position) {
+        public void onBind(ClassRoom c, int position) {
             stt = itemView.findViewById(R.id.sttTextView);
             subject = itemView.findViewById(R.id.subjectsTextView);
             time = itemView.findViewById(R.id.timeTextView);
 
-            stt.setText(c.getCountStudent());
+            stt.setText(String.valueOf(c.getCountStudent()));
             subject.setText(c.getName());
             time.setText(c.getTime());
         }

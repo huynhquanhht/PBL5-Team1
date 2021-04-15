@@ -10,20 +10,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plb.R;
+import com.example.plb.model.ClassRoom;
 import com.example.plb.model.Student;
 import com.example.plb.ui.infor.InforActivity;
-import com.example.plb.ui.login.MainActivity;
+import com.example.plb.ui.result.ResultActivity;
 import com.example.plb.ui.schedule.ScheduleActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -35,11 +39,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private ImageView mNavButton;
+    private ProgressDialog mLoadingBar;
+    private Button mAttendanceButton;
     private RecyclerView mRecyclerView;
-    private List<Student> mStudentList = new ArrayList<>();
-    private StudentAdapter mStudentAdapter;
+    private List<ClassRoom> mClassRooms = new ArrayList<>();
+    private TypeClassAdapter mTypeClassAdapter;
     private Toolbar mToolbar;
     private TextView mClassTextView;
+    private Spinner mBuildingSpinner;
+    private Spinner mSerialSpinner;
+    private ArrayAdapter mBuildingAdapter;
+    private ArrayAdapter mSerialAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,40 +62,96 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         init();
         setupUI();
 
+        Toast.makeText(this, "Vui lòng chọn lớp học và phòng học cần điểm danh...", Toast.LENGTH_SHORT).show();
+
     }
 
     private void setupUI() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mStudentAdapter = new StudentAdapter(mStudentList);
-        mRecyclerView.setAdapter(mStudentAdapter);
+        mTypeClassAdapter = new TypeClassAdapter(mClassRooms);
+        mRecyclerView.setAdapter(mTypeClassAdapter);
+
+        List<String> buildings = new ArrayList<>();
+        buildings.add("A");
+        buildings.add("B");
+        buildings.add("C");
+        buildings.add("D");
+        buildings.add("E");
+        buildings.add("F");
+
+        List<String> classRooms = new ArrayList<>();
+        classRooms.add("101");
+        classRooms.add("102");
+        classRooms.add("103");
+        classRooms.add("104");
+        classRooms.add("105");
+        classRooms.add("201");
+        classRooms.add("202");
+        classRooms.add("203");
+
+        mLoadingBar.setTitle("Điểm danh");
+        mLoadingBar.setMessage("Vui lòng đợi, Hệ thông đang trong qua trình điểm danh");
+        mLoadingBar.setCanceledOnTouchOutside(false);
+
+        mBuildingAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, buildings);
+        mSerialAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, classRooms);
+
+        mSerialSpinner.setAdapter(mSerialAdapter);
+        mBuildingSpinner.setAdapter(mBuildingAdapter);
 
         fakeData();
 
-        mStudentAdapter.setOnClickListener(new StudentAdapter.OnClickListener() {
+        mTypeClassAdapter.setOnClickListener(new TypeClassAdapter.OnClickListener() {
             @Override
             public void onClick(Student student, int position) {
                 Intent intent = new Intent(HomeActivity.this, InforActivity.class);
                 startActivity(intent);
             }
         });
+
+        mAttendanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLoadingBar.show();
+
+                new CountDownTimer(5000, 1000) {
+
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        mLoadingBar.dismiss();
+
+                        Intent intent = new Intent(HomeActivity.this, ResultActivity.class);
+                        startActivity(intent);
+
+                    }
+                }.start();
+            }
+        });
+
+
     }
 
     public void fakeData() {
-        Student student1 = new Student("102180138", "Le Truong Sanh", "18TCLC-DT1");
-        Student student2 = new Student("102180139", "Huynh Van Quan", "18TCLC-DT1");
-        Student student3 = new Student("102180137", "Phan Anh Tuan", "18TCLC-DT1");
-        Student student4 = new Student("102180136", "Trinh Xuan Phuc", "18TCLC-DT1");
-        Student student5 = new Student("102180135", "Nguu Ma Vuong", "18TCLC-DT1");
-        Student student6 = new Student("102180134", "Ton Ngo Khong", "18TCLC-DT1");
 
-        mStudentList.add(student1);
-        mStudentList.add(student2);
-        mStudentList.add(student3);
-        mStudentList.add(student4);
-        mStudentList.add(student5);
-        mStudentList.add(student6);
 
-        mStudentAdapter.notifyDataSetChanged();
+        ClassRoom classRoom1 = new ClassRoom("Toan", "7h - 8h", "1", 32);
+        ClassRoom classRoom2 = new ClassRoom("Ly", "8h -9h", "2", 32);
+        ClassRoom classRoom3 = new ClassRoom("Hoa", "9h - 10h", "3", 32);
+        ClassRoom classRoom4 = new ClassRoom("Anh", "10h - 11h", "4", 32);
+        ClassRoom classRoom5 = new ClassRoom("Van", "11h - 12h", "5", 32);
+
+        mClassRooms.add(classRoom1);
+        mClassRooms.add(classRoom2);
+        mClassRooms.add(classRoom3);
+        mClassRooms.add(classRoom4);
+        mClassRooms.add(classRoom5);
+
+        mTypeClassAdapter.notifyDataSetChanged();
 
     }
 
@@ -94,13 +160,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mNavigationView = findViewById(R.id.navView);
         mNavigationView = findViewById(R.id.navView);
+        mAttendanceButton = findViewById(R.id.attendanceButton);
+        mBuildingSpinner = findViewById(R.id.buildingSpinner);
+        mSerialSpinner = findViewById(R.id.serialSpinner);
         mNavigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        mRecyclerView = findViewById(R.id.recyclerview);
+        mRecyclerView = findViewById(R.id.idClassRecyclerview);
+
+        mLoadingBar = new ProgressDialog(this);
 
 
     }
