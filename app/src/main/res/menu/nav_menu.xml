@@ -10,9 +10,9 @@
             android:title="@string/title_class"/>
 
         <item
-            android:id="@+id/student"
+            android:id="@+id/nav_history"
             android:icon="@drawable/ic_baseline_person_24"
-            android:title="@string/title_student"/>
+            android:title="History"/>
 
         <item
             android:id="@+id/info"

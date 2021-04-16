@@ -157,6 +157,7 @@
         android:id="@+id/navView"
         app:headerLayout="@layout/header"
         app:menu="@menu/nav_menu"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="left"/>

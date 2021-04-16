@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.plb.R;
 import com.example.plb.model.ClassRoom;
 import com.example.plb.model.Student;
+import com.example.plb.ui.history.HistoryActivity;
 import com.example.plb.ui.infor.InforActivity;
 import com.example.plb.ui.result.ResultActivity;
 import com.example.plb.ui.schedule.ScheduleActivity;
@@ -191,6 +192,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.nav_class: {
                 Toast.makeText(this, "bbbbb", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, ScheduleActivity.class);
+                startActivity(intent);
+                break;
+            } case R.id.nav_history: {
+                Intent intent = new Intent(HomeActivity.this, HistoryActivity.class);
                 startActivity(intent);
                 break;
             }
