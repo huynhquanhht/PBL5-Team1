@@ -2,16 +2,21 @@ package com.example.plb.model;
 
 public class ClassRoom {
 
+    private String idClass;
+
     private String name;
 
-    private String time;
-
-    private int countStudent;
-
-    public ClassRoom(String name, String room, String time, int countStudent) {
+    public ClassRoom(String idClass, String name) {
+        this.idClass = idClass;
         this.name = name;
-        this.time = time;
-        this.countStudent = countStudent;
+    }
+
+    public String getIdClass() {
+        return idClass;
+    }
+
+    public void setIdClass(String idClass) {
+        this.idClass = idClass;
     }
 
     public String getName() {
@@ -20,21 +25,5 @@ public class ClassRoom {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public int getCountStudent() {
-        return countStudent;
-    }
-
-    public void setCountStudent(int countStudent) {
-        this.countStudent = countStudent;
     }
 }

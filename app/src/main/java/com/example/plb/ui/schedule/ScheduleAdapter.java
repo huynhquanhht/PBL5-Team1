@@ -25,7 +25,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_recyclerview, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_recyclerview, parent, false);
         return new ScheduleHolder(view);
     }
 
@@ -54,9 +54,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             subject = itemView.findViewById(R.id.subjectsTextView);
             time = itemView.findViewById(R.id.timeTextView);
 
-            stt.setText(String.valueOf(c.getCountStudent()));
             subject.setText(c.getName());
-            time.setText(c.getTime());
         }
     }
 }

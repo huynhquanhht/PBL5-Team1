@@ -1,14 +1,13 @@
 package com.example.plb.ui.history;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
 import com.example.plb.R;
 import com.example.plb.model.History;
-import com.example.plb.ui.Home.TypeClassAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

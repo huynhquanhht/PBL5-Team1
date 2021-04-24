@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PLB">
-        <activity android:name=".ui.history.HistoryActivity"></activity>
+        <activity android:name=".ui.classroom.ClassRoomActivity"></activity>
+        <activity android:name=".ui.history.HistoryActivity" />
         <activity android:name=".ui.result.ResultActivity" />
         <activity android:name=".ui.schedule.ScheduleActivity" />
         <activity android:name=".ui.infor.InforActivity" /> <!-- <activity android:name=".HomeActivity" /> -->

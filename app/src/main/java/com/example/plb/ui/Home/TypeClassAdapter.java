@@ -1,11 +1,9 @@
 package com.example.plb.ui.Home;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,17 +17,17 @@ import com.example.plb.model.Student;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TypeClassAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class TypeClassAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<ClassRoom> mClassRoomList = new ArrayList<>();
     private OnClickListener mOnClickListener;
 
-    public void setOnClickListener(OnClickListener onClickListener) {
-        mOnClickListener = onClickListener;
-    }
-
     public TypeClassAdapter(List<ClassRoom> classRoomList) {
         mClassRoomList = classRoomList;
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
     }
 
     @NonNull
@@ -47,6 +45,10 @@ public class TypeClassAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemCount() {
         return mClassRoomList.size();
+    }
+
+    public interface OnClickListener {
+        void onClick(Student student, int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,15 +70,11 @@ public class TypeClassAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (position == 0) {
 //                 mChooseImageView.setVisibility(View.INVISIBLE);
-                 mLinearLayout.setBackgroundColor(Color.parseColor("#53C1F3"));
-                 mClassTextView.setTextColor(Color.parseColor("#FFFFFFFF"));
+                mLinearLayout.setBackgroundColor(Color.parseColor("#53C1F3"));
+                mClassTextView.setTextColor(Color.parseColor("#FFFFFFFF"));
             }
 
         }
-    }
-
-    public interface OnClickListener {
-        void onClick(Student student, int position);
     }
 
 }

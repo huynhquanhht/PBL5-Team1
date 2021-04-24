@@ -1,10 +1,10 @@
 package com.example.plb.ui.schedule;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.example.plb.R;
 import com.example.plb.model.ClassRoom;
@@ -37,17 +37,15 @@ public class ScheduleActivity extends AppCompatActivity {
     }
 
     public void fakeData() {
-        ClassRoom classRoom1 = new ClassRoom("Toan", "7h - 8h", "1", 32);
-        ClassRoom classRoom2 = new ClassRoom("Ly", "8h -9h", "2", 32);
-        ClassRoom classRoom3 = new ClassRoom("Hoa", "9h - 10h", "3", 32);
-        ClassRoom classRoom4 = new ClassRoom("Anh", "10h - 11h", "4", 32);
-        ClassRoom classRoom5 = new ClassRoom("Van", "11h - 12h", "5", 32);
+        ClassRoom classRoom = new ClassRoom("1813", "Giai Tich");
+        ClassRoom classRoom1 = new ClassRoom("1814", "Giai Tich");
+        ClassRoom classRoom2 = new ClassRoom("1813B", "Giai Tich");
+        ClassRoom classRoom3 = new ClassRoom("1814B", "Giai Tich");
 
+        mClassRoomList.add(classRoom);
         mClassRoomList.add(classRoom1);
         mClassRoomList.add(classRoom2);
         mClassRoomList.add(classRoom3);
-        mClassRoomList.add(classRoom4);
-        mClassRoomList.add(classRoom5);
 
         mScheduleAdapter.notifyDataSetChanged();
 

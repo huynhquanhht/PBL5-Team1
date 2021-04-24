@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,9 +8,9 @@
 
 
     <com.google.android.material.appbar.AppBarLayout
-        android:background="#5CABEA"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:background="#5CABEA">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -20,36 +19,36 @@
 
 
             <TextView
-                android:text="Lịch sử"
-                android:textStyle="bold"
-                android:textSize="18sp"
-
-                android:layout_marginLeft="32dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+
+                android:text="Lịch sử"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/bg_searchview"
-            app:queryHint="Tìm kiếm"
-            android:layout_height="wrap_content"/>
+            app:queryHint="Tìm kiếm" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/historyRecyclerview"
             android:layout_width="match_parent"
-            android:layout_marginTop="16dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

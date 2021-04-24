@@ -1,24 +1,20 @@
 package com.example.plb.ui.history;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plb.R;
-import com.example.plb.model.ClassRoom;
 import com.example.plb.model.History;
-import com.example.plb.ui.Home.TypeClassAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<History> mHistories = new ArrayList<>();
 

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
-    tools:context=".ui.Home.HomeActivity">
-
+    tools:context=".ui.Home.HomeActivity"
+    tools:openDrawer="start">
 
 
     <ScrollView
@@ -21,9 +19,9 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.appbar.AppBarLayout
-                android:background="#5CABEA"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/basic_color">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -32,120 +30,78 @@
 
 
                     <TextView
-                        android:text="DAS"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_marginLeft="32dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:text="DAS"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                 </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.AppBarLayout>
 
             <RelativeLayout
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="#53C1F3"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_above="@+id/recyclerviewLn"
-                    android:orientation="horizontal"
-                    android:layout_marginHorizontal="4dp"
-                    android:weightSum="10"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_height="wrap_content"
-                        android:text="Mã lớp"
-                        android:layout_weight="4"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:layout_above="@+id/recyclerviewLn" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:layout_weight="3"
-                        android:textSize="20sp"
-                        android:text="Khu"
-                        android:layout_marginHorizontal="4dp"
-                        android:layout_above="@+id/recyclerviewLn" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:layout_weight="3"
-                        android:textSize="20sp"
-                        android:text="Phòng"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginHorizontal="4dp"
-                        android:layout_above="@+id/recyclerviewLn" />
-
-
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/txt1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Danh sách lớp"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
-                    android:id="@+id/recyclerviewLn"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_above="@+id/attendanceButton"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    android:layout_marginHorizontal="8dp"
-                    android:weightSum="10"
-                    android:layout_marginBottom="16dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/idClassRecyclerview"
-                        android:layout_width="0dp"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_height="250dp"
-                        android:layout_weight="4"
-                        android:layout_above="@+id/attendanceButton" />
-
-                    <Spinner
-                        android:id="@+id/buildingSpinner"
-                        android:layout_width="0dp"
-                        android:layout_marginHorizontal="4dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"/>
-
-                    <Spinner
-                        android:id="@+id/serialSpinner"
-                        android:layout_marginHorizontal="4dp"
-                        android:layout_width="0dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"/>
-
-
-                </LinearLayout>
-
-
-
-
-                <Button
-                    android:id="@+id/attendanceButton"
+                    android:id="@+id/ln3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:text="Điểm danh"
+                    android:layout_below="@id/txt1"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/buttons"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="64dp"/>
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/recyclerviewLn"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/recyclerviewLn"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="Mã"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/recyclerviewLn"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:text="Tên lớp"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listClassRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/ln3"
+                    android:layout_marginTop="8dp" />
 
             </RelativeLayout>
 
@@ -155,10 +111,9 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
-        app:headerLayout="@layout/header"
-        app:menu="@menu/nav_menu"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="left"/>
+        android:layout_gravity="left"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/nav_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

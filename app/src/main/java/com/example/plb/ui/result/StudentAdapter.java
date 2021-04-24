@@ -1,36 +1,32 @@
 package com.example.plb.ui.result;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plb.R;
-import com.example.plb.model.ClassRoom;
 import com.example.plb.model.Student;
-import com.example.plb.ui.Home.TypeClassAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Student> mStudentList = new ArrayList<>();
     private OnClickListener mOnClickListener;
 
-    public void setOnClickListener(OnClickListener onClickListener) {
-        mOnClickListener = onClickListener;
-    }
-
     public StudentAdapter(List<Student> studentList) {
         mStudentList = studentList;
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
     }
 
     @NonNull
@@ -48,6 +44,10 @@ public class StudentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         return mStudentList.size();
+    }
+
+    public interface OnClickListener {
+        void onClick(Student student, int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -79,9 +79,5 @@ public class StudentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
 
         }
-    }
-
-    public interface OnClickListener {
-        void onClick(Student student, int position);
     }
 }
