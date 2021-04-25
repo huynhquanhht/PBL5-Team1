@@ -1,19 +1,40 @@
 package com.example.plb.ui.login;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.plb.R;
 import com.example.plb.ui.Home.HomeActivity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private final String url = "https://plb5.000webhostapp.com/login.php";
+
     private Button mLoginButton;
+    private EditText mIdEditText;
+    private EditText mPassEditText;
+    private ProgressDialog mLoadingBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
         mLoginButton = findViewById(R.id.loginButton);
+        mIdEditText = findViewById(R.id.usernameEditText);
+        mPassEditText = findViewById(R.id.passEditText);
+        mLoadingBar = new ProgressDialog(this);
 
         mLoginButton.setOnClickListener(this);
     }
@@ -35,10 +59,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginButton: {
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
+                if (mIdEditText.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(this, "Vui long nhap UserName", Toast.LENGTH_SHORT).show();
+                } else if (mIdEditText.getText().toString().trim().isEmpty()){
+                    Toast.makeText(this, "Vui long nhap PassWord", Toast.LENGTH_SHORT).show();
+                } else {
+                    mLoadingBar.setTitle("Login Account");
+                    mLoadingBar.setMessage("Vui long doi mot chut, Dang kiem tra thong tin dang nhap");
+                    mLoadingBar.setCanceledOnTouchOutside(false);
+                    mLoadingBar.show();
+                    checkLogin(url);
+                }
                 break;
             }
         }
+    }
+
+    private void checkLogin(String url) {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.trim().equals("success")) {
+                            mLoadingBar.dismiss();
+                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                        } else {
+                            mLoadingBar.dismiss();
+                            Toast.makeText(MainActivity.this, "Sai ten dang nhap hoac mat khau", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Bug", error.toString());
+                    }
+                }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                String id = mIdEditText.getText().toString().trim();
+                String pass = mPassEditText.getText().toString().trim();
+
+                Map<String, String> params = new HashMap<>();
+                params.put("id", id);
+                params.put("pass", pass);
+
+                return params;
+            }
+        };
+
+        requestQueue.add(request);
     }
 }
