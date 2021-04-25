@@ -77,7 +77,6 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/recyclerviewLn"
                         android:layout_weight="3"
-                        android:gravity="center"
                         android:text="Mã"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -88,7 +87,6 @@
                         android:layout_above="@+id/recyclerviewLn"
                         android:layout_marginRight="16dp"
                         android:layout_weight="4"
-                        android:gravity="center"
                         android:text="Tên lớp"
                         android:textSize="20sp"
                         android:textStyle="bold" />

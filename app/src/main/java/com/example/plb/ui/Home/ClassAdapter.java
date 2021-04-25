@@ -9,19 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plb.R;
-import com.example.plb.model.ClassRoom;
+import com.example.plb.model.Schedule;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClassAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<ClassRoom> mClassRoomList = new ArrayList<>();
+    List<Schedule> mScheduleList = new ArrayList<>();
 
     private OnClickListener mOnClickListener;
 
-    public ClassAdapter(List<ClassRoom> classRoomList) {
-        mClassRoomList = classRoomList;
+    public ClassAdapter(List<Schedule> scheduleList) {
+        mScheduleList = scheduleList;
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -37,16 +37,16 @@ public class ClassAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ClassHolder) holder).onBind(mClassRoomList.get(position), position);
+        ((ClassHolder) holder).onBind(mScheduleList.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return mClassRoomList.size();
+        return mScheduleList.size();
     }
 
     public interface OnClickListener {
-        void onClick(ClassRoom classRoom, int position);
+        void onClick(Schedule classRoom, int position);
     }
 
     class ClassHolder extends RecyclerView.ViewHolder {
@@ -60,17 +60,17 @@ public class ClassAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(itemView);
         }
 
-        public void onBind(ClassRoom classRoom, int position) {
+        public void onBind(Schedule schedule, int position) {
             serialTextView = itemView.findViewById(R.id.serialTextView);
             idClassTextView = itemView.findViewById(R.id.idClassTextView);
             nameClassTextView = itemView.findViewById(R.id.nameClassTextView);
             attendTextView = itemView.findViewById(R.id.attendTextView);
 
             serialTextView.setText(++position + "");
-            idClassTextView.setText(classRoom.getIdClass());
-            nameClassTextView.setText(classRoom.getName());
+            idClassTextView.setText(schedule.getId());
+            nameClassTextView.setText(schedule.getSubject());
 
-            attendTextView.setOnClickListener(v -> mOnClickListener.onClick(classRoom, getAdapterPosition()));
+            attendTextView.setOnClickListener(v -> mOnClickListener.onClick(schedule, getAdapterPosition()));
 
         }
 

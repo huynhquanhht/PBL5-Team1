@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -21,9 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plb.R;
-import com.example.plb.model.ClassRoom;
+import com.example.plb.model.Schedule;
+import com.example.plb.ui.classroom.ClassRoomActivity;
 import com.example.plb.ui.history.HistoryActivity;
-import com.example.plb.ui.schedule.ScheduleActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog mLoadingBar;
     private Button mAttendanceButton;
     private RecyclerView mRecyclerView;
-    private List<ClassRoom> mClassRooms = new ArrayList<>();
+    private List<Schedule> mScheduleList = new ArrayList<>();
     private ClassAdapter mClassAdapter;
     private Toolbar mToolbar;
     private TextView mClassTextView;
@@ -57,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setupUI() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mClassAdapter = new ClassAdapter(mClassRooms);
+        mClassAdapter = new ClassAdapter(mScheduleList);
         mRecyclerView.setAdapter(mClassAdapter);
 
 
@@ -70,49 +69,27 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         mClassAdapter.setOnClickListener(new ClassAdapter.OnClickListener() {
             @Override
-            public void onClick(ClassRoom classRoom, int position) {
-                Intent intent = new Intent()
+            public void onClick(Schedule classRoom, int position) {
+                Intent intent = new Intent(HomeActivity.this, ClassRoomActivity.class);
+                intent.putExtra("class", classRoom.getId());
+                startActivity(intent);
             }
         });
-
-//        mAttendanceButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mLoadingBar.show();
-//
-//                new CountDownTimer(5000, 1000) {
-//
-//                    @Override
-//                    public void onTick(long millisUntilFinished) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFinish() {
-//                        mLoadingBar.dismiss();
-//
-//                        Intent intent = new Intent(HomeActivity.this, ResultActivity.class);
-//                        startActivity(intent);
-//
-//                    }
-//                }.start();
-//            }
-//        });
 
 
     }
 
     public void fakeData() {
 
-        ClassRoom classRoom = new ClassRoom("1813", "Giai Tich");
-        ClassRoom classRoom1 = new ClassRoom("1814", "Giai Tich");
-        ClassRoom classRoom2 = new ClassRoom("1813B", "Giai Tich");
-        ClassRoom classRoom3 = new ClassRoom("1814B", "Giai Tich");
+        Schedule classRoom1 = new Schedule("1813", "Giai Tich", "7h", "8h", "E301", "0919199999");
+        Schedule classRoom2 = new Schedule("1813A", "Giai Tich", "7h", "8h", "E301", "0919199999");
+        Schedule classRoom3 = new Schedule("1813B", "Giai Tich", "7h", "8h", "E301", "0919199999");
+        Schedule classRoom4 = new Schedule("1813C", "Giai Tich", "7h", "8h", "E301", "0919199999");
 
-        mClassRooms.add(classRoom);
-        mClassRooms.add(classRoom1);
-        mClassRooms.add(classRoom2);
-        mClassRooms.add(classRoom3);
+
+        mScheduleList.add(classRoom1);
+        mScheduleList.add(classRoom2);
+        mScheduleList.add(classRoom3);
 
         mClassAdapter.notifyDataSetChanged();
 
@@ -148,12 +125,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.nav_class: {
-                Toast.makeText(this, "bbbbb", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(HomeActivity.this, ScheduleActivity.class);
-                startActivity(intent);
-                break;
-            }
             case R.id.nav_history: {
                 Intent intent = new Intent(HomeActivity.this, HistoryActivity.class);
                 startActivity(intent);

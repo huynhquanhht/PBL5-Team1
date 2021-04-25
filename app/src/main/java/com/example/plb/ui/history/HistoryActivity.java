@@ -29,11 +29,6 @@ public class HistoryActivity extends AppCompatActivity {
         mHistoryAdapter = new HistoryAdapter(mHistoryList);
         mRecyclerView.setAdapter(mHistoryAdapter);
 
-        mHistoryList.add(new History("1", "18/2/2021 8:21", "18TCLC_DT1", "E303", 32, 2));
-        mHistoryList.add(new History("1", "18/2/2021 8:21", "18TCLC_DT1", "E303", 32, 2));
-        mHistoryList.add(new History("1", "18/2/2021 8:21", "18TCLC_DT1", "E303", 32, 2));
-        mHistoryList.add(new History("1", "18/2/2021 8:21", "18TCLC_DT1", "E303", 32, 2));
-
         mHistoryAdapter.notifyDataSetChanged();
     }
 }
