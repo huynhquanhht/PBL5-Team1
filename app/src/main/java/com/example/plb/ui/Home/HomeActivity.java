@@ -4,13 +4,16 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,16 +22,35 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.plb.R;
 import com.example.plb.model.Schedule;
+import com.example.plb.prevalent.Prevalent;
 import com.example.plb.ui.classroom.ClassRoomActivity;
 import com.example.plb.ui.history.HistoryActivity;
+import com.example.plb.ui.login.MainActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import io.paperdb.Paper;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+
+    private final String url = "https://plb5.000webhostapp.com/getSchedule.php";
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -40,6 +62,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ClassAdapter mClassAdapter;
     private Toolbar mToolbar;
     private TextView mClassTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +83,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerView.setAdapter(mClassAdapter);
 
 
-        mLoadingBar.setTitle("Điểm danh");
-        mLoadingBar.setMessage("Vui lòng đợi, Hệ thông đang trong qua trình điểm danh");
+        mLoadingBar.setTitle("Load thời khóa biểu");
+        mLoadingBar.setMessage("Vui lòng đợi");
         mLoadingBar.setCanceledOnTouchOutside(false);
+        mLoadingBar.show();
 
-
-        fakeData();
+        getSchedule(url);
 
         mClassAdapter.setOnClickListener(new ClassAdapter.OnClickListener() {
             @Override
@@ -79,21 +102,55 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void fakeData() {
+    public void getSchedule(String url) {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        Schedule classRoom1 = new Schedule("1813", "Giai Tich", "7h", "8h", "E301", "0919199999");
-        Schedule classRoom2 = new Schedule("1813A", "Giai Tich", "7h", "8h", "E301", "0919199999");
-        Schedule classRoom3 = new Schedule("1813B", "Giai Tich", "7h", "8h", "E301", "0919199999");
-        Schedule classRoom4 = new Schedule("1813C", "Giai Tich", "7h", "8h", "E301", "0919199999");
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject explrObject = jsonArray.getJSONObject(i);
+                        mScheduleList.add(new Schedule(
+                                explrObject.getString("id"),
+                                explrObject.getString("subject"),
+                                explrObject.getString("timestart"),
+                                explrObject.getString("timeend"),
+                                explrObject.getString("room"),
+                                explrObject.getString("idacount")
+                                ));
+                    }
 
+                    mClassAdapter.notifyDataSetChanged();
+                    mLoadingBar.dismiss();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-        mScheduleList.add(classRoom1);
-        mScheduleList.add(classRoom2);
-        mScheduleList.add(classRoom3);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Bug", error.toString());
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
 
-        mClassAdapter.notifyDataSetChanged();
+                String id = Prevalent.currentOnlineUser.getId();
 
+                Map<String, String> params = new HashMap<>();
+                params.put("id", id);
+
+                return params;
+            }
+        };
+
+        requestQueue.add(request);
     }
+
 
     private void init() {
         mToolbar = findViewById(R.id.toolbar);
@@ -129,6 +186,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(HomeActivity.this, HistoryActivity.class);
                 startActivity(intent);
                 break;
+            } case R.id.logout: {
+                Paper.book().destroy();
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         }
 

@@ -10,9 +10,9 @@
         android:title="History" />
 
     <item
-        android:id="@+id/info"
+        android:id="@+id/logout"
         android:icon="@drawable/ic_baseline_info_24"
-        android:title="@string/title_infor" />
+        android:title="@string/log_out" />
 
 
 </menu>
