@@ -30,6 +30,8 @@ import java.util.Map;
 public class HistoryActivity extends AppCompatActivity {
 
     private final String url = "https://plb5.000webhostapp.com/getHistoryClass.php";
+    private final String url1 = "http://plb5.000webhostapp.com/getHistory.php";
+
 
     private RecyclerView mRecyclerView;
     private List<Attendance> mHistoryList = new ArrayList<>();
@@ -41,7 +43,11 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        idClass = getIntent().getExtras().getString("idschedule");
+        try {
+            idClass = getIntent().getExtras().getString("idschedule");
+        } catch (Exception e) {
+
+        }
 
         mRecyclerView = findViewById(R.id.historyRecyclerview);
 
@@ -57,7 +63,11 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void setupUI() {
 
-        getClassHistory(url);
+        if (idClass == null) {
+            getClassHistory(url1);
+        } else {
+            getClassHistory(url);
+        }
 
 
     }
@@ -97,11 +107,7 @@ public class HistoryActivity extends AppCompatActivity {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("id", idClass);
-
-                return params;
+                return super.getParams();
             }
         };
 

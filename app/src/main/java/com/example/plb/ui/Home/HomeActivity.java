@@ -183,14 +183,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (item.getItemId()) {
             case R.id.nav_history: {
-                Intent intent = new Intent(HomeActivity.this, HistoryActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(HomeActivity.this, HistoryActivity.class);
+                startActivity(intent1);
                 break;
             } case R.id.logout: {
                 Paper.book().destroy();
                 Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                break;
+
             }
         }
 

@@ -55,7 +55,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mTotalTextView = itemView.findViewById(R.id.absentTextView);
 
             mSerialTextView.setText(position + 1 + "");
-            mClassTextView.setText(history.getId());
+            mClassTextView.setText(history.getIdschedule());
             mTimeTextView.setText(history.getTimeattend());
             mTotalTextView.setText(history.getAbsent());
         }
