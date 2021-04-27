@@ -55,7 +55,7 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             serialTextView = itemView.findViewById(R.id.serialTextView);
             idTextView = itemView.findViewById(R.id.idStudentTextView);
-            nameTextView = itemView.findViewById(R.id.nameTextView);
+            nameTextView = itemView.findViewById(R.id.nameStudentTextView);
             totalAbsentTextView = itemView.findViewById(R.id.totalAbsentTextView);
         }
 

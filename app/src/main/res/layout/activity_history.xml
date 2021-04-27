@@ -44,6 +44,53 @@
             android:background="@drawable/bg_searchview"
             app:queryHint="Tìm kiếm" />
 
+        <LinearLayout
+            android:id="@+id/ln1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/studentSearchView"
+            android:layout_marginTop="16dp"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/recyclerviewLn"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/recyclerviewLn"
+                android:layout_weight="3"
+                android:text="Mã"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/recyclerviewLn"
+                android:layout_weight="4"
+                android:text="Thoi gian"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/recyclerviewLn"
+                android:layout_marginRight="16dp"
+                android:layout_weight="2"
+                android:text="Vắng"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/historyRecyclerview"
             android:layout_width="match_parent"

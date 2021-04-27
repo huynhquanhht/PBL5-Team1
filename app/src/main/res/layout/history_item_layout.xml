@@ -2,35 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="4dp"
     android:orientation="horizontal"
     android:weightSum="10">
 
-    <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/ln1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:text="23/4/2021 8:21"
-        android:textSize="20sp" />
+        android:layout_below="@id/studentSearchView"
+        android:layout_marginTop="16dp"
+        android:weightSum="10">
 
+        <TextView
+            android:id="@+id/serialTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/recyclerviewLn"
+            android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/baseClassTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:text="18TCLC_DT1"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/idClassTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/recyclerviewLn"
+            android:layout_weight="3"
+            android:text="Mã" />
 
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/recyclerviewLn"
+            android:layout_weight="5"
+            android:text="Tên sinh viên"/>
 
-    <TextView
-        android:id="@+id/totalTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:gravity="center"
-        android:text="16"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/absentTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/recyclerviewLn"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:text="Vắng" />
+
+    </LinearLayout>
 
 </LinearLayout>

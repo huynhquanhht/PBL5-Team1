@@ -9,17 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plb.R;
-import com.example.plb.model.History;
+import com.example.plb.model.Attendance;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<History> mHistories = new ArrayList<>();
+    private List<Attendance> mAttendacnces = new ArrayList<>();
 
-    public HistoryAdapter(List<History> histories) {
-        mHistories = histories;
+    public HistoryAdapter(List<Attendance> attendacnces) {
+        mAttendacnces = attendacnces;
     }
 
     @NonNull
@@ -31,31 +31,33 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder) holder).onBind(mHistories.get(position), position);
+        ((ViewHolder) holder).onBind(mAttendacnces.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return mHistories.size();
+        return mAttendacnces.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTimeTextView, mClassTextView, mTotalTextView;
+        private TextView mSerialTextView, mClassTextView, mTimeTextView, mTotalTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
-        public void onBind(History history, int position) {
+        public void onBind(Attendance history, int position) {
 
+            mSerialTextView = itemView.findViewById(R.id.serialTextView);
+            mClassTextView = itemView.findViewById(R.id.idClassTextView);
             mTimeTextView = itemView.findViewById(R.id.timeTextView);
-            mClassTextView = itemView.findViewById(R.id.baseClassTextView);
-            mTotalTextView = itemView.findViewById(R.id.totalTextView);
+            mTotalTextView = itemView.findViewById(R.id.absentTextView);
 
-            mTotalTextView.setText(history.getTotal() + "");
-            mClassTextView.setText(history.getBaseclass());
-            mTimeTextView.setText(history.getTime());
+            mSerialTextView.setText(position + 1 + "");
+            mClassTextView.setText(history.getId());
+            mTimeTextView.setText(history.getTimeattend());
+            mTotalTextView.setText(history.getAbsent());
         }
     }
 

@@ -12,7 +12,7 @@ public class Student {
 
     private String birthDay;
 
-    private boolean sex;
+    private int sex;
 
     private String baseClass;
 
@@ -20,7 +20,7 @@ public class Student {
 
     private String urlAttend;
 
-    private boolean status;
+    private int status;
 
     private String totalAbsent;
 
@@ -28,7 +28,7 @@ public class Student {
 
     private String idAttendance;
 
-    public Student(String id, String codeStudent, String name, String phone, String birthDay, boolean sex, String baseClass, String urlAvatar, String urlAttend, boolean status, String totalAbsent, String idSchedule, String idAttendance) {
+    public Student(String id, String codeStudent, String name, String phone, String birthDay, int sex, String baseClass, String urlAvatar, String urlAttend, int status, String totalAbsent, String idSchedule, String idAttendance) {
         this.id = id;
         this.codeStudent = codeStudent;
         this.name = name;
@@ -72,14 +72,6 @@ public class Student {
         return phone;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -92,11 +84,11 @@ public class Student {
         this.birthDay = birthDay;
     }
 
-    public boolean isSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(boolean sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
@@ -124,6 +116,22 @@ public class Student {
         this.urlAttend = urlAttend;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getTotalAbsent() {
+        return totalAbsent;
+    }
+
+    public void setTotalAbsent(String totalAbsent) {
+        this.totalAbsent = totalAbsent;
+    }
+
     public String getIdSchedule() {
         return idSchedule;
     }
@@ -138,13 +146,5 @@ public class Student {
 
     public void setIdAttendance(String idAttendance) {
         this.idAttendance = idAttendance;
-    }
-
-    public String getTotalAbsent() {
-        return totalAbsent;
-    }
-
-    public void setTotalAbsent(String totalAbsent) {
-        this.totalAbsent = totalAbsent;
     }
 }

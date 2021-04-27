@@ -69,7 +69,7 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             mNameTextView.setText(student.getName());
             mClassTextView.setText(student.getBaseClass());
-            mStatusCheckbox.setChecked(student.isStatus());
+            mStatusCheckbox.setChecked(Boolean.valueOf(student.getStatus()+""));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
