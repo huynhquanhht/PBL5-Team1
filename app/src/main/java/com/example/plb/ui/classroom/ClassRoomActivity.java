@@ -1,13 +1,23 @@
 package com.example.plb.ui.classroom;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,12 +30,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plb.R;
 import com.example.plb.model.Student;
+import com.example.plb.ui.Home.HomeActivity;
 import com.example.plb.ui.history.HistoryActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,34 +51,79 @@ public class ClassRoomActivity extends AppCompatActivity {
     private StudentAdapter mStudentAdapter;
     private List<Student> mStudentList = new ArrayList<>();
     private String idClass;
-    private Button mHistoryButton;
-    private Button mAttendButton;
+    private TextView mHistoryButton;
+    private TextView mAttendButton;
+    private Toolbar mToolbar;
+    private String subject;
+    private ProgressDialog mLoadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_room);
 
+        setSupportActionBar(findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         idClass = getIntent().getExtras().getString("class");
+        subject = getIntent().getExtras().getString("subject");
+
+        mLoadingBar = new ProgressDialog(this);
+
+        mLoadingBar.setTitle("Loading");
+        mLoadingBar.setMessage("Please wait");
+        mLoadingBar.setCanceledOnTouchOutside(false);
+        mLoadingBar.show();
+
 
         init();
         setupUI();
+
+        mStudentList = mStudentAdapter.getStudentList();
 
         mHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ClassRoomActivity.this, HistoryActivity.class);
-                intent.putExtra("idschedule", idClass);
+                intent.putExtra("idclass", idClass);
+                intent.putExtra("subject", subject);
                 startActivity(intent);
             }
         });
 
-
     }
 
-    private void setupUI() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_menu, menu);
+
+        MenuItem mSearch = menu.findItem(R.id.search);
+
+        SearchView mSearchView = (SearchView) mSearch.getActionView();
+        mSearchView.setQueryHint("Search...");
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+            private void setupUI() {
         mStudentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mStudentAdapter = new StudentAdapter(mStudentList);
+        mStudentAdapter = new StudentAdapter(mStudentList, this);
         mStudentRecyclerView.setAdapter(mStudentAdapter);
 
         getSchedule(url);
@@ -74,12 +131,38 @@ public class ClassRoomActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                finish();
+                break;
+            }
+
+        }
+        return true;
+    }
+
+    private void filter(String newText) {
+        List<Student> users = new ArrayList<>();
+
+        for (Student item : mStudentList) {
+            if (item.getName().toLowerCase().contains(newText.toLowerCase())) {
+                users.add(item);
+            }
+        }
+
+        if (users.isEmpty()) {
+        } else {
+            mStudentAdapter.filterList(users);
+        }
+    }
+
     private void init() {
-
         mStudentRecyclerView = findViewById(R.id.studentsRecyclerview);
-        mHistoryButton = findViewById(R.id.historyButton);
-        mAttendButton = findViewById(R.id.attendButton);
-
+        mToolbar = findViewById(R.id.toolbar);
+        mHistoryButton = findViewById(R.id.historyOfClassTextView);
+        mAttendButton = findViewById(R.id.attendTextView);
     }
 
     public void getSchedule(String url) {
@@ -112,6 +195,7 @@ public class ClassRoomActivity extends AppCompatActivity {
 
                     }
                     mStudentAdapter.notifyDataSetChanged();
+                    mLoadingBar.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -3,18 +3,30 @@ package com.example.plb.model;
 public class Info {
     private String id;
     private String name;
+    private String email;
     private String phone;
-    private boolean sex;
+    private String sex;
     private String birthDay;
     private String url;
 
-    public Info(String id, String name, String phone, boolean sex, String birthDay, String url) {
+    public Info() {}
+
+    public Info(String id, String name, String email, String phone, String sex, String birthDay, String url) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.phone = phone;
         this.sex = sex;
         this.birthDay = birthDay;
         this.url = url;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getId() {
@@ -41,11 +53,11 @@ public class Info {
         this.phone = phone;
     }
 
-    public boolean isSex() {
+    public String isSex() {
         return sex;
     }
 
-    public void setSex(boolean sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

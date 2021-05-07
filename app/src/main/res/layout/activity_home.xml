@@ -10,32 +10,37 @@
     tools:openDrawer="start">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/basic_color">
+                android:background="@color/white">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize">
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="32dp"
-                        android:text="DAS"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginStart="100dp"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Schedule"
+                            android:layout_marginLeft="100dp" />
+
+                    </RelativeLayout>
 
                 </androidx.appcompat.widget.Toolbar>
 
@@ -44,74 +49,85 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16dp"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                <TextView
-                    android:id="@+id/txt1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Danh sách lớp"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                <RelativeLayout
+                    android:id="@+id/layout1"
+                    android:background="@drawable/bg_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
 
-                <LinearLayout
-                    android:id="@+id/ln3"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatarMainImageView"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="32dp"
+                        android:src="@drawable/ic_baseline_person_24"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/nameMainTextView"
+                        android:textSize="16sp"
+                        android:layout_toRightOf="@id/avatarMainImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Le Truong Sanh"
+                        android:layout_marginLeft="16dp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/phoneTextView"
+                        android:textColor="#D9D9D9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_below="@id/nameMainTextView"
+                        android:text="Phone: 0918199742"
+                        android:layout_toRightOf="@id/avatarMainImageView"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="4dp"/>
+
+                    <TextView
+                        android:id="@+id/birthDayTextView"
+                        android:textColor="#D9D9D9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_below="@id/nameMainTextView"
+                        android:text="Birthday: 15/2/2000"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_below="@id/layout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/txt1"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
+                    app:tabMode="fixed" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/recyclerviewLn"
-                        android:layout_weight="1"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/recyclerviewLn"
-                        android:layout_weight="3"
-                        android:text="Mã"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/recyclerviewLn"
-                        android:layout_marginRight="16dp"
-                        android:layout_weight="4"
-                        android:text="Tên lớp"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/listClassRecyclerView"
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/ln3"
-                    android:layout_marginTop="8dp" />
+                    android:layout_below="@id/tab_layout"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 
             </RelativeLayout>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </ScrollView>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        app:headerLayout="@layout/header"
         app:menu="@menu/nav_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -14,6 +14,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
@@ -21,9 +22,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-
-                android:text="Kết quả điểm danh"
+                android:layout_marginLeft="100dp"
+                android:textColor="@color/black"
+                android:text="Result Attendance"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -38,171 +39,95 @@
         android:padding="16dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <LinearLayout
-            android:id="@+id/statusLinearLayout"
+        <RelativeLayout
+            android:id="@+id/layout1"
+            android:background="@drawable/bg_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/bg_linearlayout"
-            android:orientation="horizontal"
-            android:padding="16dp">
+            android:paddingHorizontal="24dp"
+            android:layout_height="100dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/baseClassTextView"
+                android:textSize="16sp"
+                android:layout_alignParentStart="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="60dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sỉ số" />
-
-                <TextView
-                    android:id="@+id/totalStudentTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    android:text="40"
-                    android:textColor="#059DE3"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Có mặt" />
-
-                <TextView
-                    android:id="@+id/countStudentTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    android:text="12"
-                    android:textColor="#059DE3"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vắng" />
-
-                <TextView
-                    android:id="@+id/absentTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    android:text="0"
-                    android:textColor="#059DE3"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Giai Tich"
                 android:layout_marginLeft="16dp"
-                android:orientation="vertical">
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lớp" />
-
-                <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    android:text="1"
-                    android:textColor="#059DE3"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/phoneTextView"
+                android:textColor="#D9D9D9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_below="@id/baseClassTextView"
+                android:text="Phone: 0918199742"
                 android:layout_marginLeft="16dp"
-                android:orientation="vertical">
+                android:layout_marginTop="4dp"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="28dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
 
                 <TextView
+                    android:id="@+id/birthDayTextView"
+                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Điểm danh tay" />
+                    android:textSize="12sp"
+                    android:text="Total Student: 35"/>
 
-                <Switch
+                <TextView
+                    android:id="@+id/totalAbsentTextView"
+                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"
+                    android:text="Absent: 3"/>
+
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/studentSearchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/statusLinearLayout"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_searchview"
-            app:queryHint="Tìm kiếm" />
-
-
-        <LinearLayout
-            android:id="@+id/ln2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/studentSearchView"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/manualAttendSwitch"
+            android:layout_below="@id/layout1"
+            android:layout_width="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_ln_result"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="8"
-                android:padding="4dp"
-                android:text="Danh sách học sinh" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="2"
-                android:padding="4dp"
-                android:text="Trạng thái" />
-
-
-        </LinearLayout>
+            android:layout_alignParentEnd="true"
+            android:text="Manual Attendance"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml"
+            android:layout_alignParentRight="true" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/studentsRecyclerview"
+            android:id="@+id/studentRecyclerview"
+            android:layout_below="@id/manualAttendSwitch"
+            android:layout_marginTop="16sp"
+            android:layout_above="@id/saveButton"
+            android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ln2"
-            android:layout_marginTop="4dp" />
+            android:layout_height="match_parent"/>
 
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_alignParentBottom="true"
+            android:text="save"
+            android:textColor="@color/white"
+            android:background="@drawable/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

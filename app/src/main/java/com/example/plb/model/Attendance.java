@@ -5,12 +5,22 @@ public class Attendance {
     private String timeattend;
     private String idschedule;
     private String absent;
+    private String total;
 
-    public Attendance(String id, String timeattend, String idschedule, String absent) {
+    public Attendance(String id, String timeattend, String idschedule, String absent, String total) {
         this.id = id;
         this.timeattend = timeattend;
         this.idschedule = idschedule;
         this.absent = absent;
+        this.total = total;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
     }
 
     public String getId() {

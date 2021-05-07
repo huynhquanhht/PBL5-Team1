@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#EFEDED"
     android:layout_height="match_parent"
     tools:context=".ui.classroom.ClassRoomActivity">
 
@@ -14,22 +15,25 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
-
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-
+                android:layout_marginLeft="124dp"
+                android:textColor="@color/black"
                 android:text="Class"
+
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,91 +41,88 @@
         android:padding="8dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/studentSearchView"
+        <RelativeLayout
+            android:id="@+id/ly1"
+            android:layout_margin="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_searchview"
-            app:queryHint="Tìm kiếm" />
-
-        <LinearLayout
-            android:id="@+id/ln1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/studentSearchView"
-            android:layout_marginTop="16dp"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
+            android:layout_height="100dp">
+            
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/recyclerviewLn"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:text="Subject: Nguyen Ly 2"
+                android:textAllCaps="false"
+                android:paddingHorizontal="16dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/input_design"
+                android:layout_marginLeft="8dp" />
 
-            <TextView
-                android:layout_width="0dp"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/recyclerviewLn"
-                android:layout_weight="3"
-                android:text="Mã"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/recyclerviewLn"
-                android:layout_weight="4"
-                android:text="Tên sinh viên"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/recyclerviewLn"
+                android:text="Student: 32"
+                android:paddingHorizontal="8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
-                android:layout_weight="2"
-                android:text="Vắng"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textAllCaps="false"
+                android:background="@drawable/input_design"
+                android:layout_alignParentRight="true" />
 
-        </LinearLayout>
+
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/studentsRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/attendButton"
-            android:layout_below="@id/ln1"
+            android:background="#EFEDED"
+            android:layout_above="@id/ly2"
+            android:layout_below="@id/ly1"
             android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="8dp"
             android:layout_marginBottom="16dp" />
 
-        <Button
-            android:id="@+id/historyButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ly2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="100dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/buttons"
-            android:text="Xem lịch sử"
-            android:textAllCaps="false" />
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_marginHorizontal="8dp"
+            android:background="@drawable/bg_bottom_class"
+            android:layout_alignParentBottom="true">
 
-        <Button
-            android:id="@+id/attendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_toRightOf="@id/historyButton"
-            android:background="@drawable/buttons"
-            android:text="Điểm danh"
-            android:textAllCaps="false" />
+            <TextView
+                android:id="@+id/attendTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Attendance"
+                android:padding="16dp"
+                android:textStyle="bold"
+                android:textColor="#122AAF"
+                android:gravity="center"
+                android:layout_weight="5"/>
 
+            <View
+                android:layout_width="1dp"
+                android:layout_marginVertical="8dp"
+                android:background="#1C1B1B"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/historyOfClassTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="History of Class"
+                android:padding="16dp"
+                android:textStyle="bold"
+                android:textColor="#122AAF"
+                android:gravity="center"
+                android:layout_weight="5"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -10,22 +10,39 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plb.R;
 import com.example.plb.model.Attendance;
+import com.example.plb.model.Schedule;
+import com.example.plb.ui.Home.ScheduleAdapter;
+import com.example.plb.ui.classroom.StudentAdapter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Attendance> mAttendacnces = new ArrayList<>();
+    private String mSubject;
+    private OnClickListener mOnClickListener;
 
-    public HistoryAdapter(List<Attendance> attendacnces) {
+    public HistoryAdapter(List<Attendance> attendacnces, String subject) {
         mAttendacnces = attendacnces;
+        mSubject = subject;
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
+    }
+
+    public interface OnClickListener {
+        void onClick(Attendance attendance, int position);
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gr_history, parent, false);
         return new ViewHolder(view);
     }
 
@@ -41,25 +58,40 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mSerialTextView, mClassTextView, mTimeTextView, mTotalTextView;
+        private TextView dateTextView, timeTextView, classTextView, codeTextView, absentTextView, totalTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            dateTextView = itemView.findViewById(R.id.dateTextView);
+            timeTextView = itemView.findViewById(R.id.timeTextView);
+            classTextView = itemView.findViewById(R.id.subjectTextView);
+            codeTextView = itemView.findViewById(R.id.codeClassTextView);
+            absentTextView = itemView.findViewById(R.id.totalAbsentTextView);
+            totalTextView = itemView.findViewById(R.id.totalStudentTextView);
         }
 
         public void onBind(Attendance history, int position) {
 
-            mSerialTextView = itemView.findViewById(R.id.serialTextView);
-            mClassTextView = itemView.findViewById(R.id.idClassTextView);
-            mTimeTextView = itemView.findViewById(R.id.timeTextView);
-            mTotalTextView = itemView.findViewById(R.id.absentTextView);
+            SimpleDateFormat formatter5=new SimpleDateFormat("HH:mm:ss dd:MM:yyyy");
+            try {
+                Date date = formatter5.parse(history.getTimeattend());
+                String Date = date.getDate() + ":" + (date.getMonth() + 1) + ":" + (date.getYear() + 1900);
+                String time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
-            mSerialTextView.setText(position + 1 + "");
-            mClassTextView.setText(history.getIdschedule());
-            mTimeTextView.setText(history.getTimeattend());
-            mTotalTextView.setText(history.getAbsent());
+                dateTextView.setText(Date);
+                timeTextView.setText(time);
+                codeTextView.setText(history.getIdschedule());
+                absentTextView.setText("Total Absent: " + history.getAbsent());
+                classTextView.setText(mSubject);
+                totalTextView.setText("Total: " + history.getTotal());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            itemView.setOnClickListener(v -> mOnClickListener.onClick(history, position));
+
         }
     }
-
 
 }

@@ -7,15 +7,35 @@ public class Schedule {
     private String timeStart;
     private String timeEnd;
     private String room;
+    private String serial;
+    private String total;
     private String idAccount;
 
-    public Schedule(String id, String subject, String timeStart, String timeEnd, String room, String idAccount) {
+    public Schedule(String id, String subject, String timeStart, String timeEnd, String room, String serial, String total, String idAccount) {
         this.id = id;
         this.subject = subject;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.room = room;
+        this.serial = serial;
+        this.total = total;
         this.idAccount = idAccount;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
     }
 
     public String getId() {

@@ -19,8 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -29,13 +31,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.plb.R;
+import com.example.plb.model.Info;
 import com.example.plb.model.Schedule;
 import com.example.plb.prevalent.Prevalent;
 import com.example.plb.ui.classroom.ClassRoomActivity;
 import com.example.plb.ui.history.HistoryActivity;
+import com.example.plb.ui.infor.InforActivity;
 import com.example.plb.ui.login.MainActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,17 +57,25 @@ import io.paperdb.Paper;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private final String url = "https://plb5.000webhostapp.com/getSchedule.php";
+    private final String infoUrl = "http://plb5.000webhostapp.com/getInfo.php";
 
     private DrawerLayout mDrawerLayout;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
     private NavigationView mNavigationView;
     private ImageView mNavButton;
+    private ImageView mAvatarMainImageView;
+    private ImageView mAvatarImageView;
     private ProgressDialog mLoadingBar;
     private Button mAttendanceButton;
     private RecyclerView mRecyclerView;
     private List<Schedule> mScheduleList = new ArrayList<>();
-    private ClassAdapter mClassAdapter;
     private Toolbar mToolbar;
-    private TextView mClassTextView;
+    private TextView mPhoneTextView;
+    private TextView mNameTextView;
+    private TextView mBirthDayTextView;
+    private Info mInfo;
+
 
 
     @Override
@@ -71,38 +85,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
-        setupUI();
+
+        getInfo(infoUrl);
 
     }
 
-    private void setupUI() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mClassAdapter = new ClassAdapter(mScheduleList);
-        mRecyclerView.setAdapter(mClassAdapter);
 
+    public void getInfo(String url) {
 
-        mLoadingBar.setTitle("Load thời khóa biểu");
-        mLoadingBar.setMessage("Vui lòng đợi");
-        mLoadingBar.setCanceledOnTouchOutside(false);
-        mLoadingBar.show();
-
-        getSchedule(url);
-
-        mClassAdapter.setOnClickListener(new ClassAdapter.OnClickListener() {
-            @Override
-            public void onClick(Schedule classRoom, int position) {
-                Intent intent = new Intent(HomeActivity.this, ClassRoomActivity.class);
-                intent.putExtra("class", classRoom.getId());
-                startActivity(intent);
-            }
-        });
-
-
-    }
-
-    public void getSchedule(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -110,22 +103,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(String response) {
                 try {
                     JSONArray jsonArray = new JSONArray(response);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject explrObject = jsonArray.getJSONObject(i);
-                        mScheduleList.add(new Schedule(
-                                explrObject.getString("id"),
-                                explrObject.getString("subject"),
-                                explrObject.getString("timestart"),
-                                explrObject.getString("timeend"),
-                                explrObject.getString("room"),
-                                explrObject.getString("idacount")
-                                ));
-                    }
+                    JSONObject explrObject = jsonArray.getJSONObject(0);
 
-                    mClassAdapter.notifyDataSetChanged();
+                    String id = explrObject.getString("id");
+                    String name = explrObject.getString("name");
+                    String email = explrObject.getString("email");
+                    String phone = explrObject.getString("phone");
+                    String sex = explrObject.getString("sex");
+                    String birthday = explrObject.getString("birthday");
+                    String url = explrObject.getString("url");
+
+                    mInfo = new Info(id, name, email, phone, sex, birthday, url);
+
+                    Glide.with(getApplicationContext()).load(mInfo.getUrl())
+                            .placeholder(R.drawable.loading)
+                            .into(mAvatarMainImageView);
+                    mPhoneTextView.setText("Phone: " + mInfo.getPhone());
+                    mNameTextView.setText(mInfo.getName());
+                    mBirthDayTextView.setText("BirthDay: " + mInfo.getBirthDay());
+
                     mLoadingBar.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.d("bug", e.toString());
                 }
 
             }
@@ -139,7 +139,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                String id = Prevalent.currentOnlineUser.getId();
+                String id = Prevalent.currentOnlineUser.getIdInfo();
 
                 Map<String, String> params = new HashMap<>();
                 params.put("id", id);
@@ -151,19 +151,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         requestQueue.add(request);
     }
 
-
     private void init() {
         mToolbar = findViewById(R.id.toolbar);
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mNavigationView = findViewById(R.id.navView);
         mNavigationView = findViewById(R.id.navView);
-        mRecyclerView = findViewById(R.id.listClassRecyclerView);
+        mAvatarMainImageView = findViewById(R.id.avatarMainImageView);
+        mAvatarImageView = findViewById(R.id.avatarImageView);
+        mPhoneTextView = findViewById(R.id.phoneTextView);
+        mBirthDayTextView = findViewById(R.id.birthDayTextView);
+        mNameTextView = findViewById(R.id.nameMainTextView);
+        mTabLayout = findViewById(R.id.tab_layout);
+        mViewPager = findViewById(R.id.view_pager);
 
         mNavigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, this);
+        mViewPager.setAdapter(viewPagerAdapter);
+
+        mTabLayout.setupWithViewPager(mViewPager);
 
         mLoadingBar = new ProgressDialog(this);
 
@@ -182,6 +192,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.nav_profile: {
+                Intent intent = new Intent(HomeActivity.this, InforActivity.class);
+                intent.putExtra("idInfo", Prevalent.currentOnlineUser.getIdInfo());
+                startActivity(intent);
+                break;
+            }
             case R.id.nav_history: {
                 Intent intent1 = new Intent(HomeActivity.this, HistoryActivity.class);
                 startActivity(intent1);

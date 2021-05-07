@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText mPassEditText;
     private ProgressDialog mLoadingBar;
     private CheckBox mRememberCheckBox;
-
+    private TextView mStudentTextView;
+    private boolean mIsStudent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Prevalent.currentOnlineUser = new Account(UserPhoneKey, UserPhoneKey, UserPasswordKey, UserInfo);
 
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                finish();
                 startActivity(intent);
             }
         }
@@ -74,8 +77,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPassEditText = findViewById(R.id.passEditText);
         mLoadingBar = new ProgressDialog(this);
         mRememberCheckBox = findViewById(R.id.rememberCheckBox);
+        mStudentTextView = findViewById(R.id.studentTextView);
 
         mLoginButton.setOnClickListener(this);
+        mStudentTextView.setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -92,11 +97,75 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mLoadingBar.setMessage("Vui long doi mot chut, Dang kiem tra thong tin dang nhap");
                     mLoadingBar.setCanceledOnTouchOutside(false);
                     mLoadingBar.show();
-                    checkLogin(url);
+
+                    if (mIsStudent) {
+                        checkStudent();
+                    } else {
+                        checkLogin(url);
+                    }
                 }
                 break;
+            } case R.id.studentTextView: {
+                mIsStudent = !mIsStudent;
+
+                if (mIsStudent) {
+                    mStudentTextView.setText("I am teacher");
+                    mLoginButton.setText("Login with student");
+                    mLoginButton.setAllCaps(false);
+                    mPassEditText.setHint("Mã học phần");
+                } else {
+                    mStudentTextView.setText("I am student");
+                    mLoginButton.setText("Login");
+                    mLoginButton.setAllCaps(false);
+                    mPassEditText.setHint("Mật khẩu");
+                }
             }
         }
+    }
+
+    private void checkStudent() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.trim().equals("error")) {
+                            mLoadingBar.dismiss();
+                            Toast.makeText(MainActivity.this, "Sai ten dang nhap hoac mat khau", Toast.LENGTH_SHORT).show();
+                        } else {
+                            mLoadingBar.dismiss();
+                            Prevalent.currentOnlineUser = new Account(mIdEditText.getText().toString().trim(), mIdEditText.getText().toString().trim(),
+                                    mPassEditText.getText().toString().trim(), response.trim());
+                            AllowAccessToAcount(mIdEditText.getText().toString().trim(), mPassEditText.getText().toString().trim(), response.trim());
+                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            finish();
+                            startActivity(intent);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Bug", error.toString());
+                    }
+                }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                String id = mIdEditText.getText().toString().trim();
+                String pass = mPassEditText.getText().toString().trim();
+
+                Map<String, String> params = new HashMap<>();
+                params.put("id", id);
+                params.put("pass", pass);
+
+                return params;
+            }
+        };
+
+        requestQueue.add(request);
+
     }
 
     private void checkLogin(String url) {
@@ -115,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             AllowAccessToAcount(mIdEditText.getText().toString().trim(), mPassEditText.getText().toString().trim(), response.trim());
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            finish();
                             startActivity(intent);
                         }
                     }

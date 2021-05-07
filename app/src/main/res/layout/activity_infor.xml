@@ -9,21 +9,27 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#5CABEA">
+        android:layout_height="?attr/actionBarSize">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
+            <ImageView
+                android:id="@+id/backArrowImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/ic_baseline_arrow_back_24"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="150dp"
+                android:textColor="@color/black"
+                android:text="Profile"
 
-                android:text="Thông tin cá nhân"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -32,176 +38,93 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_width="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/avatarImageView"
-            android:layout_width="192dp"
-            android:layout_height="192dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/download"
-            app:civ_border_color="#2196F3"
-            app:civ_border_width="2dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/bg_main">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatartInfoImageView"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:src="@drawable/loading"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/nameDog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:text="Huynh Nga"
+            android:text="User Name"
+            android:layout_marginTop="64dp"
+            android:layout_marginLeft="51dp"/>
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="48dp"
+            android:text="Le Truong Sanh"
+            android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:enabled="false"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Email"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_marginLeft="51dp"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="MSSV"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/bredForTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="102180138"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_marginHorizontal="48dp"
+            android:text="sanhlttasjd@gmail.com"
+            android:textStyle="bold"
+            android:id="@+id/emailEditText"
+            android:textColor="@color/black"
+            android:enabled="false"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Lớp"
-                android:textSize="17sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="51dp"/>
 
-            <TextView
-                android:id="@+id/bredGroupTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="18TCLC-DT1"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/phoneEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_marginHorizontal="48dp"
+            android:text="0388214234"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:enabled="false"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date of Birth"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="51dp"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Ngày Sinh"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/lifeSpanTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="1/1/2000"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/dateEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Quê Quán:"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/originTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="Da Na"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Số Điện Thoại:"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/temTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="00000000000"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Sở Thích"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/heightTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="Doc Sach"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-        </LinearLayout>
-
+            android:layout_marginHorizontal="48dp"
+            android:text="10/4/2000"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:enabled="false"/>
 
     </LinearLayout>
 
