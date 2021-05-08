@@ -27,6 +27,7 @@ import com.example.plb.R;
 import com.example.plb.model.Account;
 import com.example.plb.prevalent.Prevalent;
 import com.example.plb.ui.Home.HomeActivity;
+import com.example.plb.ui.student.StudentActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,7 @@ import io.paperdb.Paper;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String url = "https://plb5.000webhostapp.com/login.php";
+    private final String urlCheckStudent = "https://plb5.000webhostapp.com/checkStudent.php";
 
     private Button mLoginButton;
     private EditText mIdEditText;
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mLoadingBar.show();
 
                     if (mIsStudent) {
-                        checkStudent();
+                        checkStudent(urlCheckStudent);
                     } else {
                         checkLogin(url);
                     }
@@ -123,24 +125,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void checkStudent() {
+    private void checkStudent(String urlStudent) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(Request.Method.POST, url,
+        StringRequest request = new StringRequest(Request.Method.POST, urlStudent,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         if (response.trim().equals("error")) {
                             mLoadingBar.dismiss();
-                            Toast.makeText(MainActivity.this, "Sai ten dang nhap hoac mat khau", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Khong co du lieu diem danh", Toast.LENGTH_SHORT).show();
                         } else {
-                            mLoadingBar.dismiss();
-                            Prevalent.currentOnlineUser = new Account(mIdEditText.getText().toString().trim(), mIdEditText.getText().toString().trim(),
-                                    mPassEditText.getText().toString().trim(), response.trim());
-                            AllowAccessToAcount(mIdEditText.getText().toString().trim(), mPassEditText.getText().toString().trim(), response.trim());
-                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                            finish();
+                            Intent intent = new Intent(MainActivity.this, StudentActivity.class);
+                            intent.putExtra("idstudent", mIdEditText.getText().toString().trim());
+                            intent.putExtra("codeclass", mPassEditText.getText().toString().trim());
                             startActivity(intent);
+                            mLoadingBar.dismiss();
                         }
                     }
                 },
