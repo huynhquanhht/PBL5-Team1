@@ -79,6 +79,8 @@ public class TodayFragment extends Fragment {
         });
     }
 
+
+
     public void getSchedule(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
@@ -91,7 +93,7 @@ public class TodayFragment extends Fragment {
 
         String id = Prevalent.currentOnlineUser.getId();
 
-        String link = url + id + "&" + serial;
+        String link = url + id + "&" + serial + "/";
 
         StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override

@@ -118,7 +118,7 @@ public class HistoryActivity extends AppCompatActivity {
     public void getAllClassHistory(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String link = url + Prevalent.currentOnlineUser.getId();
+        String link = url + Prevalent.currentOnlineUser.getId() + "/";
 
         StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override
@@ -176,7 +176,7 @@ public class HistoryActivity extends AppCompatActivity {
     public void getClassHistory(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String link = url + idClass;
+        String link = url + idClass + "/";
 
         StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override

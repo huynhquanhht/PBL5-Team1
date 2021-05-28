@@ -160,7 +160,7 @@ public class ClassRoomActivity extends AppCompatActivity {
 
         for (int i = 0; i < students.size(); i++) {
             addStudent(students.get(i).getCodeStudent(), students.get(i).getName(), students.get(i).getPhone(),
-                    students.get(i).getIdSchedule(), students.get(i).getUrlAttend(), students.get(i).getUrlAvatar());
+                    students.get(i).getIdSchedule(), students.get(i).getUrlAttend(), students.get(i).getUrlAvatar(), students.get(i).getBirthDay());
         }
 
 
@@ -206,7 +206,7 @@ public class ClassRoomActivity extends AppCompatActivity {
     public void getRequestAttend(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String link = url + idClass + "&" + idAttend;
+        String link = url + idClass + "&" + idAttend + "/";
 
         StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override
@@ -214,9 +214,12 @@ public class ClassRoomActivity extends AppCompatActivity {
                 Intent intent = new Intent(ClassRoomActivity.this, ResultActivity.class);
                 intent.putExtra("idattendance", idAttend);
                 intent.putExtra("subject", subject);
+                intent.putExtra("codeclass", codeclass);
                 intent.putExtra("idclass", idClass);
                 intent.putExtra("totalstudent", total);
                 intent.putExtra("absent", response.trim());
+
+                startActivity(intent);
 
                 mLoadingBar.dismiss();
                 Log.d("BugGetRequestAttend", "Finish");
@@ -234,7 +237,7 @@ public class ClassRoomActivity extends AppCompatActivity {
             }
         };
 
-        int socketTimeout = 120000;//30 seconds - change to what you want
+        int socketTimeout = 1200000;//30 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
 
@@ -242,7 +245,7 @@ public class ClassRoomActivity extends AppCompatActivity {
     }
 
 
-    private void addStudent(String codestudent, String name, String phone, String idschedule, String urlAttend, String urlAvater) {
+    private void addStudent(String codestudent, String name, String phone, String idschedule, String urlAttend, String urlAvater, String birthday) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.POST, urlStudent,
                 new Response.Listener<String>() {
@@ -264,11 +267,12 @@ public class ClassRoomActivity extends AppCompatActivity {
                 params.put("codestudent", codestudent);
                 params.put("name", name);
                 params.put("phone", phone);
+                params.put("birthday", birthday);
                 params.put("sex", "true");
                 params.put("baseclass", codeclass);
-                params.put("status", "0");
-                params.put("urlavatar", urlAttend);
-                params.put("urlattend", urlAvater);
+                params.put("status", "1");
+                params.put("urlavatar", urlAvater);
+                params.put("urlattend", "");
                 params.put("schedule", idschedule);
                 params.put("attendance", idAttend);
 
@@ -400,7 +404,7 @@ public class ClassRoomActivity extends AppCompatActivity {
     public void getSchedule(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String link = url + idClass;
+        String link = url + idClass + "/";
 
         StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override
@@ -423,7 +427,7 @@ public class ClassRoomActivity extends AppCompatActivity {
                             String baseclass = explrObject.getString("baseclass");
                             String urlava = explrObject.getString("urlavatar");
                             String urlaten = explrObject.getString("urlattend");
-                            int sta = explrObject.getInt("status");
+                            int sta = Integer.parseInt(explrObject.getString("status"));
                             String idsch = explrObject.getString("schedule");
                             String idatend = explrObject.getString("schedule");
 

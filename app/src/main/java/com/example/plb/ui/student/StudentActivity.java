@@ -71,7 +71,7 @@ public class StudentActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String urlStudent = url + idStudent + "&" + codeClass;
+        String urlStudent = url + idStudent + "&" + codeClass + "/";
 
         StringRequest request = new StringRequest(Request.Method.GET, urlStudent, new Response.Listener<String>() {
             @Override

@@ -63,7 +63,7 @@ public class ResultActivity extends AppCompatActivity {
     private RecyclerView mStudentsRecyclerview;
     private StudentAdapter mStudentAdapter;
     private ProgressDialog mLoadingBar;
-    private String idClass, idBaseClass, subject, totalStudent, absent;
+    private String codeclass, idBaseClass, subject, totalStudent, absent;
     private SwitchCompat mSwitch;
     private Button mSaveButton;
     private String idAttedn;
@@ -80,12 +80,12 @@ public class ResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        idClass = getIntent().getExtras().getString("idattendance");
         idBaseClass = getIntent().getExtras().getString("idclass");
         subject = getIntent().getExtras().getString("subject");
         totalStudent = getIntent().getExtras().getString("totalstudent");
         absent = getIntent().getExtras().getString("absent");
         idAttedn = getIntent().getExtras().getString("idattendance");
+        codeclass = getIntent().getExtras().getString("codeclass");
 
         mLoadingBar = new ProgressDialog(this);
 
@@ -104,7 +104,7 @@ public class ResultActivity extends AppCompatActivity {
     private void setupUI() {
 
         subjectTextView.setText(subject);
-        codeTextView.setText("");
+        codeTextView.setText(codeclass);
         totalTextView.setText("Total: " + totalStudent);
         absentTextView.setText("Absent: " + absent);
 
@@ -120,6 +120,7 @@ public class ResultActivity extends AppCompatActivity {
                 intent.putExtra("student", student);
                 startActivity(intent);
             }
+
 
             @Override
             public void changeStatus(Student student, boolean status) {
@@ -221,7 +222,7 @@ public class ResultActivity extends AppCompatActivity {
     public void getStudent(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String link = url + idClass;
+        String link = url + idAttedn + "/";
 
         StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override
@@ -252,14 +253,14 @@ public class ResultActivity extends AppCompatActivity {
                     mLoadingBar.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d("ResultBug", e.toString());
+                    Log.d("ResultBugGet", e.toString());
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Bug", error.toString());
+                Log.d("ResultBugGet", error.toString());
             }
         });
 
@@ -269,9 +270,9 @@ public class ResultActivity extends AppCompatActivity {
     private void updateAttend(String total) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String linkAttend = urlAttend + idAttedn;
+        String linkAttend = urlAttend + idAttedn + "/";
 
-                StringRequest request = new StringRequest(Request.Method.POST, url,
+                StringRequest request = new StringRequest(Request.Method.PATCH, linkAttend,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -281,7 +282,7 @@ public class ResultActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Bug", error.toString());
+                        Log.d("ResultBugUpdateAttend", error.toString());
                     }
                 }){
             @Nullable
@@ -298,11 +299,14 @@ public class ResultActivity extends AppCompatActivity {
 
 
     private void updateStudent(Student student) {
+
+//        102180149&1&1/
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String linkstudent = urlUpdate + student.getId();
+        String linkstudent = urlUpdate + student.getCodeStudent() + "&" + idBaseClass + "&" + idAttedn + "/";
 
-        StringRequest request = new StringRequest(Request.Method.POST, linkstudent,
+        StringRequest request = new StringRequest(Request.Method.PATCH, linkstudent,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -312,7 +316,7 @@ public class ResultActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Bug", error.toString());
+                        Log.d("BugUpdate", error.toString());
                     }
                 }){
             @Nullable
@@ -320,10 +324,11 @@ public class ResultActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 if (student.getStatus() == 0) {
-                    params.put("status", "false");
+                    params.put("status", "0");
                 } else {
-                    params.put("status", "true");
+                    params.put("status", "1");
                 }
+                Log.d("PrintUpdate", student.getName() + " " + params.toString());
                 return params;
             }
         };

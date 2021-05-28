@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String id = mIdEditText.getText().toString().trim();
         String pass = mPassEditText.getText().toString().trim();
 
-        String link = urlStudent + id + "&" + pass;
+        String link = urlStudent + id + "&" + pass + "/";
 //        String link = "http://103.151.123.96:8000/student/1021801a37&18Nh13/";
 
 

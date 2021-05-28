@@ -123,6 +123,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+
     public void getInfo(String url) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -245,7 +246,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void applyFile(String name, String code, String timestart, String timend, String room) {
 
         baseClass = code;
-        updateSchdedule(name, timestart, timend, room, "2", "48");
+        updateSchdedule(name, timestart, timend, room, "2", "48", code);
 
         Intent intent = new Intent(HomeActivity.this, FilePickerActivity.class);
 
@@ -342,7 +343,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateSchdedule(String subject, String timestart, String timesend,
-                                 String room, String serial, String total) {
+                                 String room, String serial, String total, String codeclass) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.POST, urlschedule,
                 new Response.Listener<String>() {
@@ -365,6 +366,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 params.put("subject", subject);
                 params.put("timestart", timestart);
                 params.put("timeend", timesend);
+                params.put("codeclass", codeclass);
                 params.put("room", room);
                 params.put("serial", serial);
                 params.put("total", total);

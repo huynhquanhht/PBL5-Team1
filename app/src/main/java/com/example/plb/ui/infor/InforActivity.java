@@ -100,9 +100,9 @@ public class InforActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String link = url + idInfo;
+        String link = url + Prevalent.currentOnlineUser.getIdInfo() + "/";
 
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
