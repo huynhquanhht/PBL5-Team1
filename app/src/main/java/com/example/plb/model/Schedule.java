@@ -4,6 +4,7 @@ public class Schedule {
 
     private String id;
     private String subject;
+    private String codeclass;
     private String timeStart;
     private String timeEnd;
     private String room;
@@ -11,15 +12,24 @@ public class Schedule {
     private String total;
     private String idAccount;
 
-    public Schedule(String id, String subject, String timeStart, String timeEnd, String room, String serial, String total, String idAccount) {
+    public Schedule(String id, String subject, String codeclass, String timeStart, String timeEnd, String room, String serial, String total, String idAccount) {
         this.id = id;
         this.subject = subject;
+        this.codeclass = codeclass;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.room = room;
         this.serial = serial;
         this.total = total;
         this.idAccount = idAccount;
+    }
+
+    public String getCodeclass() {
+        return codeclass;
+    }
+
+    public void setCodeclass(String codeclass) {
+        this.codeclass = codeclass;
     }
 
     public String getTotal() {

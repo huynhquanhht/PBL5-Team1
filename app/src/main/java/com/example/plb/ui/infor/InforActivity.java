@@ -39,7 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InforActivity extends AppCompatActivity {
 
-    private final String infoUrl = "http://plb5.000webhostapp.com/getInfo.php";
+    private final String infoUrl = "http://103.151.123.96:8000/info/";
 
     private EditText mNameEditText, mEmailEditText, mPhoneEditText, mDateEditText;
     private CircleImageView mCircleImageView;
@@ -100,7 +100,9 @@ public class InforActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String link = url + idInfo;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -136,17 +138,7 @@ public class InforActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.d("Bug", error.toString());
             }
-        }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("id", idInfo);
-
-                return params;
-            }
-        };
+        });
 
         requestQueue.add(request);
     }

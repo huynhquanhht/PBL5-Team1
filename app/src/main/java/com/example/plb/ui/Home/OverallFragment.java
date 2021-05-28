@@ -1,5 +1,6 @@
 package com.example.plb.ui.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -23,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.plb.R;
 import com.example.plb.model.Schedule;
 import com.example.plb.prevalent.Prevalent;
+import com.example.plb.ui.classroom.ClassRoomActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +41,7 @@ import java.util.Map;
 
 public class OverallFragment extends Fragment {
 
-    private final String url = "http://plb5.000webhostapp.com/getSchedule.php";
+    private final String url = "http://103.151.123.96:8000/schedule/";
 
     private RecyclerView mScheduleRecyclerView;
     private List<Schedule> mScheduleList;
@@ -67,12 +70,28 @@ public class OverallFragment extends Fragment {
         mScheduleRecyclerView.setAdapter(mScheduleAdapter);
 
         getSchedule(url);
+
+        mScheduleAdapter.setOnClickListener(new ScheduleOverallAdapter.OnClickListener() {
+            @Override
+            public void onClick(Schedule schedule, int position) {
+                Intent intent = new Intent(getActivity(), ClassRoomActivity.class);
+                intent.putExtra("class", schedule.getId());
+                intent.putExtra("codeclass", schedule.getCodeclass());
+                intent.putExtra("subject", schedule.getSubject());
+                intent.putExtra("total", schedule.getTotal());
+                startActivity(intent);
+            }
+        });
     }
 
     public void getSchedule(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String id = Prevalent.currentOnlineUser.getId();
+
+        String link = url + id + "&" + " /";
+
+        StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -82,12 +101,13 @@ public class OverallFragment extends Fragment {
                         mScheduleList.add(new Schedule(
                                 explrObject.getString("id"),
                                 explrObject.getString("subject"),
+                                explrObject.getString("codeclass"),
                                 explrObject.getString("timestart"),
                                 explrObject.getString("timeend"),
                                 explrObject.getString("room"),
                                 explrObject.getString("serial"),
                                 explrObject.getString("total"),
-                                explrObject.getString("idacount")
+                                explrObject.getString("account")
                         ));
                     }
 
@@ -101,7 +121,7 @@ public class OverallFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Bug", error.toString());
+                Log.d("OveralBug", error.toString());
             }
         }) {
             @Nullable

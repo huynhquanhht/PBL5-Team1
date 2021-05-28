@@ -41,7 +41,7 @@ import java.util.Map;
 
 public class TodayFragment extends Fragment {
 
-    private final String url = "http://plb5.000webhostapp.com/getSchedule.php";
+    private final String url = "http://103.151.123.96:8000/schedule/";
 
     private RecyclerView mScheduleRecyclerView;
     private List<Schedule> mScheduleList;
@@ -72,6 +72,8 @@ public class TodayFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ClassRoomActivity.class);
                 intent.putExtra("class", schedule.getId());
                 intent.putExtra("subject", schedule.getSubject());
+                intent.putExtra("codeclass", schedule.getCodeclass());
+                intent.putExtra("total", schedule.getTotal());
                 startActivity(intent);
             }
         });
@@ -80,7 +82,18 @@ public class TodayFragment extends Fragment {
     public void getSchedule(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        Date now = new Date();
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.setTime(now);
+//                int serial = calendar.get(Calendar.DAY_OF_WEEK);
+
+        int serial = 2;
+
+        String id = Prevalent.currentOnlineUser.getId();
+
+        String link = url + id + "&" + serial;
+
+        StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -90,12 +103,13 @@ public class TodayFragment extends Fragment {
                         mScheduleList.add(new Schedule(
                                 explrObject.getString("id"),
                                 explrObject.getString("subject"),
+                                explrObject.getString("codeclass"),
                                 explrObject.getString("timestart"),
                                 explrObject.getString("timeend"),
                                 explrObject.getString("room"),
                                 explrObject.getString("serial"),
                                 explrObject.getString("total"),
-                                explrObject.getString("idacount")
+                                explrObject.getString("account")
                         ));
                     }
 
@@ -109,27 +123,9 @@ public class TodayFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Bug", error.toString());
+                Log.d("TBug", error.toString());
             }
-        }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Date now = new Date();
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.setTime(now);
-//                int serial = calendar.get(Calendar.DAY_OF_WEEK);
-
-                int serial = 2;
-
-                String id = Prevalent.currentOnlineUser.getId();
-
-                Map<String, String> params = new HashMap<>();
-                params.put("id", id);
-                params.put("serial", serial + "");
-                return params;
-            }
-        };
+        });
 
         requestQueue.add(request);
     }

@@ -48,6 +48,7 @@
             android:layout_height="100dp">
             
             <Button
+                android:id="@+id/subjectButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Subject: Nguyen Ly 2"
@@ -59,6 +60,7 @@
                 android:layout_marginLeft="8dp" />
 
             <Button
+                android:id="@+id/totalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Student: 32"

@@ -80,9 +80,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 dateTextView.setText(Date);
                 timeTextView.setText(time);
-                codeTextView.setText(history.getIdschedule());
+                codeTextView.setText(history.getCodeclass());
                 absentTextView.setText("Total Absent: " + history.getAbsent());
-                classTextView.setText(mSubject);
+                classTextView.setText(history.getSubject());
                 totalTextView.setText("Total: " + history.getTotal());
 
             } catch (ParseException e) {

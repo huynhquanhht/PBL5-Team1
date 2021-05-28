@@ -76,7 +76,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             timeStart.setText(schedule.getTimeStart());
             timeEnd.setText(schedule.getTimeEnd());
             subject.setText(schedule.getSubject());
-            codeSubject.setText(schedule.getId());
+            codeSubject.setText(schedule.getCodeclass());
             totalTextView.setText("Total: " + schedule.getTotal());
             room.setText(schedule.getRoom());
 

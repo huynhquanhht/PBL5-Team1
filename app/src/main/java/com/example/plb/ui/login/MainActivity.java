@@ -29,6 +29,10 @@ import com.example.plb.prevalent.Prevalent;
 import com.example.plb.ui.Home.HomeActivity;
 import com.example.plb.ui.student.StudentActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,8 +40,8 @@ import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final String url = "https://plb5.000webhostapp.com/login.php";
-    private final String urlCheckStudent = "https://plb5.000webhostapp.com/checkStudent.php";
+    private final String url = "http://103.151.123.96:8000/login/";
+    private final String urlCheckStudent = "http://103.151.123.96:8000/student/";
 
     private Button mLoginButton;
     private EditText mIdEditText;
@@ -127,11 +131,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void checkStudent(String urlStudent) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(Request.Method.POST, urlStudent,
+
+        String id = mIdEditText.getText().toString().trim();
+        String pass = mPassEditText.getText().toString().trim();
+
+        String link = urlStudent + id + "&" + pass;
+//        String link = "http://103.151.123.96:8000/student/1021801a37&18Nh13/";
+
+
+        StringRequest request = new StringRequest(Request.Method.GET, link,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if (response.trim().equals("error")) {
+                        if (response.trim().equals("false")) {
                             mLoadingBar.dismiss();
                             Toast.makeText(MainActivity.this, "Khong co du lieu diem danh", Toast.LENGTH_SHORT).show();
                         } else {
@@ -148,20 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Bug", error.toString());
                     }
-                }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                String id = mIdEditText.getText().toString().trim();
-                String pass = mPassEditText.getText().toString().trim();
-
-                Map<String, String> params = new HashMap<>();
-                params.put("id", id);
-                params.put("pass", pass);
-
-                return params;
-            }
-        };
+                });
 
         requestQueue.add(request);
 
@@ -169,52 +168,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void checkLogin(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(Request.Method.POST, url,
+
+        String id = mIdEditText.getText().toString().trim();
+        String pass = mPassEditText.getText().toString().trim();
+
+        String link = url + id + "&" + pass;
+
+        StringRequest request = new StringRequest(Request.Method.GET,
+                link,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if (response.trim().equals("error")) {
+                        if (response.trim().equals("false")) {
                             mLoadingBar.dismiss();
                             Toast.makeText(MainActivity.this, "Sai ten dang nhap hoac mat khau", Toast.LENGTH_SHORT).show();
                         } else {
+
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                JSONObject explrObject = jsonArray.getJSONObject(0);
+
+                                String id = explrObject.getString("id");
+                                String idinfo = explrObject.getString("infor");
+                                Prevalent.currentOnlineUser = new Account(id, mIdEditText.getText().toString().trim(),
+                                        mPassEditText.getText().toString().trim(), idinfo);
+                                AllowAccessToAcount(id, mIdEditText.getText().toString().trim(), mPassEditText.getText().toString().trim(), idinfo);
+                                Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                finish();
+                                startActivity(intent);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             mLoadingBar.dismiss();
-                            Prevalent.currentOnlineUser = new Account(mIdEditText.getText().toString().trim(), mIdEditText.getText().toString().trim(),
-                                    mPassEditText.getText().toString().trim(), response.trim());
-                            AllowAccessToAcount(mIdEditText.getText().toString().trim(), mPassEditText.getText().toString().trim(), response.trim());
-                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                            finish();
-                            startActivity(intent);
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Bug", error.toString());
-                    }
-                }){
-            @Nullable
+                }, new Response.ErrorListener() {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                String id = mIdEditText.getText().toString().trim();
-                String pass = mPassEditText.getText().toString().trim();
-
-                Map<String, String> params = new HashMap<>();
-                params.put("id", id);
-                params.put("pass", pass);
-
-                return params;
+            public void onErrorResponse(VolleyError error) {
+                mLoadingBar.dismiss();
+                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
-        };
+        });
+
 
         requestQueue.add(request);
     }
 
-    public void AllowAccessToAcount(String phone, String password, String idinfo) {
+    public void AllowAccessToAcount(String id, String name, String password, String idinfo) {
 
         if (mRememberCheckBox.isChecked()) {
-            Paper.book().write(Prevalent.UserPhoneKey, phone);
+
+
+            Paper.book().write(Prevalent.UserPhoneKey, id);
+            Paper.book().write(Prevalent.UserName, name);
             Paper.book().write(Prevalent.UserPasswordKey, password);
             Paper.book().write(Prevalent.UserIdInfo, idinfo);
         }

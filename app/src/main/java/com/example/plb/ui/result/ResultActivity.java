@@ -7,9 +7,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,8 +30,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plb.R;
+import com.example.plb.model.Account;
 import com.example.plb.model.Student;
+import com.example.plb.prevalent.Prevalent;
+import com.example.plb.ui.Home.HomeActivity;
 import com.example.plb.ui.infor.InforActivity;
+import com.example.plb.ui.login.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,9 +46,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class ResultActivity extends AppCompatActivity {
 
-    private final String url = "https://plb5.000webhostapp.com/getStudentResult.php";
+    private final String url = "http://103.151.123.96:8000/student/";
+    private final String urlUpdate = "http://103.151.123.96:8000/student/update/";
+    private final String urlAttend = "http://103.151.123.96:8000/attend/update/";
 
     private SearchView mSearchView;
     private TextView subjectTextView, codeTextView, totalTextView, absentTextView;
@@ -50,8 +65,11 @@ public class ResultActivity extends AppCompatActivity {
     private ProgressDialog mLoadingBar;
     private String idClass, idBaseClass, subject, totalStudent, absent;
     private SwitchCompat mSwitch;
+    private Button mSaveButton;
+    private String idAttedn;
 
     private List<Student> mStudentList = new ArrayList<>();
+    private List<Student> mStudentUpdateList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +85,7 @@ public class ResultActivity extends AppCompatActivity {
         subject = getIntent().getExtras().getString("subject");
         totalStudent = getIntent().getExtras().getString("totalstudent");
         absent = getIntent().getExtras().getString("absent");
+        idAttedn = getIntent().getExtras().getString("idattendance");
 
         mLoadingBar = new ProgressDialog(this);
 
@@ -85,7 +104,7 @@ public class ResultActivity extends AppCompatActivity {
     private void setupUI() {
 
         subjectTextView.setText(subject);
-        codeTextView.setText(idBaseClass);
+        codeTextView.setText("");
         totalTextView.setText("Total: " + totalStudent);
         absentTextView.setText("Absent: " + absent);
 
@@ -101,8 +120,30 @@ public class ResultActivity extends AppCompatActivity {
                 intent.putExtra("student", student);
                 startActivity(intent);
             }
+
+            @Override
+            public void changeStatus(Student student, boolean status) {
+                mStudentUpdateList.clear();
+                mStudentUpdateList.addAll(mStudentAdapter.getStudentList());
+            }
         });
 
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                updateAttend(mStudentAdapter.getTotal() + "");
+
+                List<Student> students = new ArrayList<>();
+                students.addAll(mStudentAdapter.getStudentList());
+
+                for (Student student : students) {
+                    updateStudent(student);
+                }
+
+                finish();
+            }
+        });
     }
 
     private void init() {
@@ -112,6 +153,7 @@ public class ResultActivity extends AppCompatActivity {
         totalTextView = findViewById(R.id.birthDayTextView);
         absentTextView = findViewById(R.id.totalAbsentTextView);
         mSwitch = findViewById(R.id.manualAttendSwitch);
+        mSaveButton = findViewById(R.id.saveButton);
 
         mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -179,7 +221,9 @@ public class ResultActivity extends AppCompatActivity {
     public void getStudent(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String link = url + idClass;
+
+        StringRequest request = new StringRequest(Request.Method.GET, link, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -191,16 +235,15 @@ public class ResultActivity extends AppCompatActivity {
                         String name = explrObject.getString("name");
                         String phone = explrObject.getString("phone");
                         String bir = explrObject.getString("birthday");
-                        int sex = explrObject.getInt("sex");
+                        boolean sex = Boolean.parseBoolean(explrObject.getString("sex"));
                         String baseclass = explrObject.getString("baseclass");
                         String urlava = explrObject.getString("urlavatar");
                         String urlaten = explrObject.getString("urlattend");
                         int sta = explrObject.getInt("status");
-                        String total = explrObject.getString("total");
-                        String idsch = explrObject.getString("idschedule");
-                        String idatend = explrObject.getString("idattendance");
+                        String idsch = explrObject.getString("schedule");
+                        String idatend = explrObject.getString("attendance");
 
-                        Student student = new Student(id, codestudent, name, phone, bir, sex, baseclass, urlava, urlaten, sta, total, idsch, idatend);
+                        Student student = new Student(id, codestudent, name, phone, bir, sex, baseclass, urlava, urlaten, sta, "0", idsch, idatend);
                         mStudentList.add(student);
 
 
@@ -209,6 +252,7 @@ public class ResultActivity extends AppCompatActivity {
                     mLoadingBar.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.d("ResultBug", e.toString());
                 }
 
             }
@@ -217,14 +261,69 @@ public class ResultActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.d("Bug", error.toString());
             }
-        }) {
+        });
+
+        requestQueue.add(request);
+    }
+
+    private void updateAttend(String total) {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        String linkAttend = urlAttend + idAttedn;
+
+                StringRequest request = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Bug", error.toString());
+                    }
+                }){
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-
                 Map<String, String> params = new HashMap<>();
-                params.put("id", idClass);
+                params.put("status", total);
+                return params;
+            }
+        };
 
+        requestQueue.add(request);
+    }
+
+
+    private void updateStudent(Student student) {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        String linkstudent = urlUpdate + student.getId();
+
+        StringRequest request = new StringRequest(Request.Method.POST, linkstudent,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Bug", error.toString());
+                    }
+                }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                if (student.getStatus() == 0) {
+                    params.put("status", "false");
+                } else {
+                    params.put("status", "true");
+                }
                 return params;
             }
         };

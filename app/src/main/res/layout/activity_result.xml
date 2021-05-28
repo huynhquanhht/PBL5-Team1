@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
                 android:textColor="@color/black"
-                android:text="Result Attendance"
+                android:text="Result"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_alignParentEnd="true"
-            android:text="Manual Attendance"
+            android:text="Manual Roll Call"
             android:layout_height="wrap_content"
             tools:ignore="UseSwitchCompatOrMaterialXml"
             android:layout_alignParentRight="true" />

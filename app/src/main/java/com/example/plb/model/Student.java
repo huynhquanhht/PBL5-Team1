@@ -1,6 +1,7 @@
 package com.example.plb.model;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class Student implements Serializable {
 
@@ -14,7 +15,7 @@ public class Student implements Serializable {
 
     private String birthDay;
 
-    private int sex;
+    private boolean sex;
 
     private String baseClass;
 
@@ -30,7 +31,7 @@ public class Student implements Serializable {
 
     private String idAttendance;
 
-    public Student(String id, String codeStudent, String name, String phone, String birthDay, int sex, String baseClass, String urlAvatar, String urlAttend, int status, String totalAbsent, String idSchedule, String idAttendance) {
+    public Student(String id, String codeStudent, String name, String phone, String birthDay, boolean sex, String baseClass, String urlAvatar, String urlAttend, int status, String totalAbsent, String idSchedule, String idAttendance) {
         this.id = id;
         this.codeStudent = codeStudent;
         this.name = name;
@@ -86,11 +87,11 @@ public class Student implements Serializable {
         this.birthDay = birthDay;
     }
 
-    public int getSex() {
+    public boolean getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(boolean sex) {
         this.sex = sex;
     }
 
@@ -149,4 +150,18 @@ public class Student implements Serializable {
     public void setIdAttendance(String idAttendance) {
         this.idAttendance = idAttendance;
     }
+
+    public static Comparator<Student> FruitNameComparator
+            = new Comparator<Student>() {
+
+        public int compare(Student fruit1, Student fruit2) {
+
+            String fruitName1 = fruit1.getTotalAbsent().toUpperCase();
+            String fruitName2 = fruit2.getTotalAbsent().toUpperCase();
+
+            return fruitName1.compareTo(fruitName2);
+        }
+
+    };
+
 }

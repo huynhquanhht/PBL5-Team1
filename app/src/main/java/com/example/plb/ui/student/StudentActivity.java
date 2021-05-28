@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class StudentActivity extends AppCompatActivity {
 
-    private final String url = "https://plb5.000webhostapp.com/getStudentLoginAttend.php";
+    private final String url = "http://103.151.123.96:8000/student/";
 
     private ImageView mAvatarImageView;
     private TextView mNameTextView;
@@ -71,7 +71,9 @@ public class StudentActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String urlStudent = url + idStudent + "&" + codeClass;
+
+        StringRequest request = new StringRequest(Request.Method.GET, urlStudent, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -83,7 +85,7 @@ public class StudentActivity extends AppCompatActivity {
                         String baseclass = explrObject.getString("baseclass");
                         String subject = explrObject.getString("subject");
                         String room = explrObject.getString("room");
-                        String id = explrObject.getString("id");
+                        String id = explrObject.getString("schedule_id");
                         String timeattend = explrObject.getString("timeattend");
                         String status = explrObject.getString("status");
 
@@ -111,18 +113,7 @@ public class StudentActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.d("Bug", error.toString());
             }
-        }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("id", idStudent);
-                params.put("codeclass", codeClass);
-
-                return params;
-            }
-        };
+        });
 
         requestQueue.add(request);
     }
