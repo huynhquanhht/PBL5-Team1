@@ -266,6 +266,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void resetSchedule() {
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
@@ -329,7 +334,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 params.put("phone", phone);
                 params.put("sex", "true");
                 params.put("baseclass", baseClass);
-                params.put("status", "0");
+                params.put("status", "1");
                 params.put("urlavatar", "");
                 params.put("urlattend", "");
                 params.put("schedule", idschedule);

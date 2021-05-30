@@ -58,6 +58,7 @@ public class ResultActivity extends AppCompatActivity {
     private final String urlUpdate = "http://103.151.123.96:8000/student/update/";
     private final String urlAttend = "http://103.151.123.96:8000/attend/update/";
 
+
     private SearchView mSearchView;
     private TextView subjectTextView, codeTextView, totalTextView, absentTextView;
     private RecyclerView mStudentsRecyclerview;

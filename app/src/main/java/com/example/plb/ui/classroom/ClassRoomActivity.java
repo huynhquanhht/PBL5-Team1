@@ -47,6 +47,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -419,8 +420,9 @@ public class ClassRoomActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject explrObject = jsonArray.getJSONObject(i);
                             String id = explrObject.getString("id");
+                            String name = new String(explrObject.getString("name").getBytes("ISO-8859-1"), "UTF-8");
                             String codestudent = explrObject.getString("codestudent");
-                            String name = explrObject.getString("name");
+//                            String name = explrObject.getString("name");
                             String phone = explrObject.getString("phone");
                             String bir = explrObject.getString("birthday");
                             boolean sex = Boolean.parseBoolean(explrObject.getString("sex"));
@@ -462,7 +464,7 @@ public class ClassRoomActivity extends AppCompatActivity {
 
                         mStudentAdapter.notifyDataSetChanged();
                         mLoadingBar.dismiss();
-                    } catch (JSONException e) {
+                    } catch (JSONException | UnsupportedEncodingException e) {
                         e.printStackTrace();
                         Log.d("ClassRomBug", e.toString());
                     }

@@ -60,7 +60,7 @@ public class StudentActivity extends AppCompatActivity {
         mBaseClassTextView = findViewById(R.id.phoneTextView);
         mRecyclerView = findViewById(R.id.studentRecyclerview);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, true));
         mStudentAdapter = new HistoryAdapter(mStudentAttendList);
         mRecyclerView.setAdapter(mStudentAdapter);
 

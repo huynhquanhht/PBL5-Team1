@@ -69,7 +69,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         mRecyclerView = findViewById(R.id.historyRecyclerView);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, true));
         mHistoryAdapter = new HistoryAdapter(mHistoryList, subject);
         mRecyclerView.setAdapter(mHistoryAdapter);
 
@@ -226,4 +226,11 @@ public class HistoryActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        mHistoryList.clear();
+        getClassHistory(url);
+    }
 }

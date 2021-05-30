@@ -42,6 +42,7 @@ import java.util.Map;
 public class TodayFragment extends Fragment {
 
     private final String url = "http://103.151.123.96:8000/schedule/";
+    private int check = 0;
 
     private RecyclerView mScheduleRecyclerView;
     private List<Schedule> mScheduleList;
@@ -64,6 +65,7 @@ public class TodayFragment extends Fragment {
         mScheduleAdapter = new ScheduleAdapter(mScheduleList);
         mScheduleRecyclerView.setAdapter(mScheduleAdapter);
 
+        mScheduleList.clear();
         getSchedule(url);
 
         mScheduleAdapter.setOnClickListener(new ScheduleAdapter.OnClickListener() {
@@ -78,7 +80,6 @@ public class TodayFragment extends Fragment {
             }
         });
     }
-
 
 
     public void getSchedule(String url) {
@@ -136,5 +137,18 @@ public class TodayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_today, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (check == 0) {
+            check ++;
+        } else {
+            mScheduleList.clear();
+            getSchedule(url);
+        }
+
     }
 }

@@ -46,6 +46,7 @@ public class OverallFragment extends Fragment {
     private RecyclerView mScheduleRecyclerView;
     private List<Schedule> mScheduleList;
     private ScheduleOverallAdapter mScheduleAdapter;
+    private int i = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,8 @@ public class OverallFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         return inflater.inflate(R.layout.fragment_overall, container, false);
     }
 
@@ -68,8 +71,6 @@ public class OverallFragment extends Fragment {
         mScheduleList = new ArrayList<>();
         mScheduleAdapter = new ScheduleOverallAdapter(mScheduleList);
         mScheduleRecyclerView.setAdapter(mScheduleAdapter);
-
-        getSchedule(url);
 
         mScheduleAdapter.setOnClickListener(new ScheduleOverallAdapter.OnClickListener() {
             @Override
@@ -144,4 +145,10 @@ public class OverallFragment extends Fragment {
         requestQueue.add(request);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mScheduleList.clear();
+        getSchedule(url);
+    }
 }

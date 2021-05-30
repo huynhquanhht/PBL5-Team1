@@ -1,6 +1,7 @@
 package com.example.plb.ui.Home;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,14 +76,23 @@ public class ClassFragment extends DialogFragment {
                 mNoticeDialogListener.applyFile(name, code, timestart, timeend, room);
                 getDialog().dismiss();
             }
-
-
         });
 
     }
 
     public interface NoticeDialogListener {
         void applyFile(String name, String code, String timeStart, String timeend, String room);
+
+        void resetSchedule();
     }
+
+    @Override
+    public void onCancel(@NonNull @NotNull DialogInterface dialog) {
+        super.onCancel(dialog);
+
+        mNoticeDialogListener.resetSchedule();
+
+    }
+
 
 }
