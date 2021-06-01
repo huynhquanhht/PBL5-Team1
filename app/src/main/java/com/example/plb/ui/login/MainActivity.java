@@ -13,10 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,9 +30,6 @@ import com.example.plb.ui.student.StudentActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import io.paperdb.Paper;
 
@@ -96,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.loginButton: {
                 if (mIdEditText.getText().toString().trim().isEmpty()) {
                     Toast.makeText(this, "Vui long nhap UserName", Toast.LENGTH_SHORT).show();
-                } else if (mIdEditText.getText().toString().trim().isEmpty()){
+                } else if (mIdEditText.getText().toString().trim().isEmpty()) {
                     Toast.makeText(this, "Vui long nhap PassWord", Toast.LENGTH_SHORT).show();
                 } else {
                     mLoadingBar.setTitle("Login Account");
@@ -111,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
                 break;
-            } case R.id.studentTextView: {
+            }
+            case R.id.studentTextView: {
                 mIsStudent = !mIsStudent;
 
                 if (mIsStudent) {

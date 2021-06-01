@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#EFEDED"
     android:layout_height="match_parent"
+    android:background="#EFEDED"
     tools:context=".ui.classroom.ClassRoomActivity">
 
 
@@ -15,17 +15,17 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="124dp"
                 android:layout_marginLeft="124dp"
+                android:text="@string/class1"
                 android:textColor="@color/black"
-                android:text="Class"
-
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -43,34 +43,36 @@
 
         <RelativeLayout
             android:id="@+id/ly1"
-            android:layout_margin="8dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
-            
+            android:layout_height="100dp"
+            android:layout_margin="8dp">
+
             <Button
                 android:id="@+id/subjectButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Subject: Nguyen Ly 2"
-                android:textAllCaps="false"
-                android:paddingHorizontal="16dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:background="@drawable/input_design"
-                android:layout_marginLeft="8dp" />
+                android:paddingHorizontal="16dp"
+                android:text="@string/subject_nguyen_ly_2"
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/totalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Student: 32"
-                android:paddingHorizontal="8dp"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:textAllCaps="false"
                 android:background="@drawable/input_design"
-                android:layout_alignParentRight="true" />
+                android:paddingHorizontal="8dp"
+                android:text="@string/student_32"
+                android:textAllCaps="false"
+                tools:ignore="RelativeOverlap" />
 
 
         </RelativeLayout>
@@ -79,50 +81,50 @@
             android:id="@+id/studentsRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#EFEDED"
             android:layout_above="@id/ly2"
             android:layout_below="@id/ly1"
-            android:layout_marginTop="8dp"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="#EFEDED" />
 
         <LinearLayout
             android:id="@+id/ly2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10"
+            android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="8dp"
             android:background="@drawable/bg_bottom_class"
-            android:layout_alignParentBottom="true">
+            android:orientation="horizontal"
+            android:weightSum="10">
 
             <TextView
                 android:id="@+id/attendTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Attendance"
-                android:padding="16dp"
-                android:textStyle="bold"
-                android:textColor="#122AAF"
+                android:layout_weight="5"
                 android:gravity="center"
-                android:layout_weight="5"/>
+                android:padding="16dp"
+                android:text="@string/attendance"
+                android:textColor="#122AAF"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="1dp"
+                android:layout_height="match_parent"
                 android:layout_marginVertical="8dp"
-                android:background="#1C1B1B"
-                android:layout_height="match_parent"/>
+                android:background="#1C1B1B" />
 
             <TextView
                 android:id="@+id/historyOfClassTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="History of Class"
-                android:padding="16dp"
-                android:textStyle="bold"
-                android:textColor="#122AAF"
+                android:layout_weight="5"
                 android:gravity="center"
-                android:layout_weight="5"/>
+                android:padding="16dp"
+                android:text="@string/history_of_class"
+                android:textColor="#122AAF"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

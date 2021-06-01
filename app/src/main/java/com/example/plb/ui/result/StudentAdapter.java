@@ -5,10 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,17 +25,17 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private OnClickListener mOnClickListener;
     private boolean checked = false;
 
+    public StudentAdapter(List<Student> studentList, Context context) {
+        mStudentList = studentList;
+        mContext = context;
+    }
+
     public boolean isChecked() {
         return checked;
     }
 
     public void setChecked() {
         this.checked = !checked;
-    }
-
-    public StudentAdapter(List<Student> studentList, Context context) {
-        mStudentList = studentList;
-        mContext = context;
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -61,17 +59,30 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return mStudentList.size();
     }
 
-    public interface OnClickListener {
-        void onClick(Student student, int position);
-
-        void changeStatus(Student student, boolean status);
-    }
-
     public void filterList(List<Student> filterllist) {
         mStudentList = filterllist;
         notifyDataSetChanged();
     }
 
+    public List<Student> getStudentList() {
+        return mStudentList;
+    }
+
+    public int getTotal() {
+        int count = 0;
+        for (Student student : mStudentList) {
+            if (student.getStatus() == 1) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public interface OnClickListener {
+        void onClick(Student student, int position);
+
+        void changeStatus(Student student, boolean status);
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -92,7 +103,6 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             mNameTextView.setText(student.getName());
             mClassTextView.setText(student.getBaseClass());
-
 
 
             if (student.getStatus() == 0) {
@@ -119,10 +129,8 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     if (status) {
                         student.setStatus(0);
-                        Toast.makeText(mContext, "0", Toast.LENGTH_SHORT).show();
                     } else {
                         student.setStatus(1);
-                        Toast.makeText(mContext, "1", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -134,19 +142,5 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 mStatusCheckbox.setEnabled(true);
             }
         }
-    }
-
-    public List<Student> getStudentList() {
-        return mStudentList;
-    }
-
-    public int getTotal(){
-        int count = 0;
-        for(Student student : mStudentList) {
-            if (student.getStatus() == 1) {
-                count++;
-            }
-        }
-        return count;
     }
 }

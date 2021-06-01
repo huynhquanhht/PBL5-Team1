@@ -27,11 +27,6 @@ public class ScheduleOverallAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         mOnClickListener = onClickListener;
     }
 
-    public interface OnClickListener {
-        void onClick(Schedule schedule, int position);
-    }
-
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,6 +42,10 @@ public class ScheduleOverallAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public int getItemCount() {
         return mScheduleList.size();
+    }
+
+    public interface OnClickListener {
+        void onClick(Schedule schedule, int position);
     }
 
     class ScheduleViewHolder extends RecyclerView.ViewHolder {

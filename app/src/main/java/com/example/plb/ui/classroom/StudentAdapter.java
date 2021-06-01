@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.plb.R;
 import com.example.plb.model.Student;
-import com.example.plb.ui.Home.ScheduleAdapter;
 
 import java.util.List;
 
@@ -24,13 +23,13 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private OnClickListener mOnClickListener;
 
 
-    public void setOnClickListener(OnClickListener onClickListener) {
-        mOnClickListener = onClickListener;
-    }
-
     public StudentAdapter(List<Student> studentList, Context context) {
         mStudentList = studentList;
         mContext = context;
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
     }
 
     public void filterList(List<Student> filterllist) {
@@ -57,6 +56,10 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         return mStudentList.size();
+    }
+
+    public interface OnClickListener {
+        void onClick(Student student, int position);
     }
 
     class StudentViewHolder extends RecyclerView.ViewHolder {
@@ -86,10 +89,6 @@ public class StudentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             absentTextView.setText("Total absent: " + student.getTotalAbsent());
 
         }
-    }
-
-    public interface OnClickListener {
-        void onClick(Student student, int position);
     }
 
 }

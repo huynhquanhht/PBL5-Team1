@@ -28,11 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -140,7 +136,7 @@ public class HistoryActivity extends AppCompatActivity {
                             String absent = explrObject.getString("status");
                             String total = explrObject.getString("total");
 
-                            Attendance attendance = new Attendance(id,subject, codeclass, timeattend, idschedule ,absent, total);
+                            Attendance attendance = new Attendance(id, subject, codeclass, timeattend, idschedule, absent, total);
                             attendances.add(attendance);
                         }
 
@@ -152,7 +148,6 @@ public class HistoryActivity extends AppCompatActivity {
                         Log.d("Bug", e.toString());
                     }
                 }
-
 
 
             }
@@ -197,7 +192,7 @@ public class HistoryActivity extends AppCompatActivity {
                             String absent = explrObject.getString("status");
                             String total = explrObject.getString("total");
 
-                            Attendance attendance = new Attendance(id,subject, codeclass, timeattend, idschedule ,absent, total);
+                            Attendance attendance = new Attendance(id, subject, codeclass, timeattend, idschedule, absent, total);
                             mHistoryList.add(attendance);
                         }
                         mHistoryAdapter.notifyDataSetChanged();
@@ -206,7 +201,6 @@ public class HistoryActivity extends AppCompatActivity {
                         Log.d("Bug", e.toString());
                     }
                 }
-
 
 
             }

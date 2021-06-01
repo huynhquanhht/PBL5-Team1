@@ -7,7 +7,8 @@
 
     <solid android:color="@color/white" />
 
-    <corners android:bottomLeftRadius="12dp"
-        android:bottomRightRadius="16dp"/>
+    <corners
+        android:bottomLeftRadius="12dp"
+        android:bottomRightRadius="16dp" />
 
 </shape>

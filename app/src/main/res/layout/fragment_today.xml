@@ -6,9 +6,9 @@
     tools:context=".ui.Home.TodayFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/todayRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EFEDED"
-        android:id="@+id/todayRecyclerview"/>
+        android:background="#EFEDED" />
 
 </FrameLayout>

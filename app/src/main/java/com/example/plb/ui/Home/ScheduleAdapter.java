@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plb.R;
 import com.example.plb.model.Schedule;
-import com.example.plb.model.Student;
-import com.example.plb.ui.result.StudentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +27,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mOnClickListener = onClickListener;
     }
 
-    public interface OnClickListener {
-        void onClick(Schedule schedule, int position);
-    }
-
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,6 +42,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         return mScheduleList.size();
+    }
+
+    public interface OnClickListener {
+        void onClick(Schedule schedule, int position);
     }
 
     class ScheduleViewHolder extends RecyclerView.ViewHolder {

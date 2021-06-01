@@ -5,30 +5,30 @@ import java.util.Comparator;
 
 public class Student implements Serializable {
 
+    public static Comparator<Student> FruitNameComparator
+            = new Comparator<Student>() {
+
+        public int compare(Student fruit1, Student fruit2) {
+
+            String fruitName1 = fruit1.getTotalAbsent().toUpperCase();
+            String fruitName2 = fruit2.getTotalAbsent().toUpperCase();
+
+            return fruitName1.compareTo(fruitName2);
+        }
+
+    };
     private String id;
-
     private String codeStudent;
-
     private String name;
-
     private String phone;
-
     private String birthDay;
-
     private boolean sex;
-
     private String baseClass;
-
     private String urlAvatar;
-
     private String urlAttend;
-
     private int status;
-
     private String totalAbsent;
-
     private String idSchedule;
-
     private String idAttendance;
 
     public Student(String id, String codeStudent, String name, String phone, String birthDay, boolean sex, String baseClass, String urlAvatar, String urlAttend, int status, String totalAbsent, String idSchedule, String idAttendance) {
@@ -150,18 +150,5 @@ public class Student implements Serializable {
     public void setIdAttendance(String idAttendance) {
         this.idAttendance = idAttendance;
     }
-
-    public static Comparator<Student> FruitNameComparator
-            = new Comparator<Student>() {
-
-        public int compare(Student fruit1, Student fruit2) {
-
-            String fruitName1 = fruit1.getTotalAbsent().toUpperCase();
-            String fruitName2 = fruit2.getTotalAbsent().toUpperCase();
-
-            return fruitName1.compareTo(fruitName2);
-        }
-
-    };
 
 }

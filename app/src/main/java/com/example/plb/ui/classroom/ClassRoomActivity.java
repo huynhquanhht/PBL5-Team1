@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +19,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,12 +31,8 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.example.plb.R;
-import com.example.plb.model.Attendance;
 import com.example.plb.model.Student;
-import com.example.plb.prevalent.Prevalent;
-import com.example.plb.ui.Home.HomeActivity;
 import com.example.plb.ui.history.HistoryActivity;
 import com.example.plb.ui.result.ResultActivity;
 
@@ -46,7 +40,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +47,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class ClassRoomActivity extends AppCompatActivity {
 
@@ -259,7 +251,7 @@ public class ClassRoomActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Bug", error.toString());
                     }
-                }){
+                }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -301,7 +293,7 @@ public class ClassRoomActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Bug", error.toString());
                     }
-                }){
+                }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -358,7 +350,7 @@ public class ClassRoomActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-            private void setupUI() {
+    private void setupUI() {
         mStudentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mStudentAdapter = new StudentAdapter(mStudentList, this);
         mStudentRecyclerView.setAdapter(mStudentAdapter);
@@ -469,7 +461,6 @@ public class ClassRoomActivity extends AppCompatActivity {
                         Log.d("ClassRomBug", e.toString());
                     }
                 }
-
 
 
             }

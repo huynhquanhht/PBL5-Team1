@@ -10,9 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,12 +28,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plb.R;
-import com.example.plb.model.Account;
 import com.example.plb.model.Student;
-import com.example.plb.prevalent.Prevalent;
-import com.example.plb.ui.Home.HomeActivity;
 import com.example.plb.ui.infor.InforActivity;
-import com.example.plb.ui.login.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,12 +39,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -273,7 +261,7 @@ public class ResultActivity extends AppCompatActivity {
 
         String linkAttend = urlAttend + idAttedn + "/";
 
-                StringRequest request = new StringRequest(Request.Method.PATCH, linkAttend,
+        StringRequest request = new StringRequest(Request.Method.PATCH, linkAttend,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -285,7 +273,7 @@ public class ResultActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.d("ResultBugUpdateAttend", error.toString());
                     }
-                }){
+                }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -319,7 +307,7 @@ public class ResultActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.d("BugUpdate", error.toString());
                     }
-                }){
+                }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {

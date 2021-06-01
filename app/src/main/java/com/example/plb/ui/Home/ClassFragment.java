@@ -70,7 +70,7 @@ public class ClassFragment extends DialogFragment {
             String room = mRoom.getText().toString().trim();
 
             if (name.isEmpty() || code.isEmpty() || timestart.isEmpty()
-            ||timeend.isEmpty() || room.isEmpty()) {
+                    || timeend.isEmpty() || room.isEmpty()) {
                 Toast.makeText(getActivity(), "Please Enter Data!!", Toast.LENGTH_SHORT).show();
             } else {
                 mNoticeDialogListener.applyFile(name, code, timestart, timeend, room);
@@ -80,18 +80,18 @@ public class ClassFragment extends DialogFragment {
 
     }
 
-    public interface NoticeDialogListener {
-        void applyFile(String name, String code, String timeStart, String timeend, String room);
-
-        void resetSchedule();
-    }
-
     @Override
     public void onCancel(@NonNull @NotNull DialogInterface dialog) {
         super.onCancel(dialog);
 
         mNoticeDialogListener.resetSchedule();
 
+    }
+
+    public interface NoticeDialogListener {
+        void applyFile(String name, String code, String timeStart, String timeend, String room);
+
+        void resetSchedule();
     }
 
 

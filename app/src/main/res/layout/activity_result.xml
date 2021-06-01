@@ -14,17 +14,17 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
-                android:textColor="@color/black"
                 android:text="Result"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -41,60 +41,60 @@
 
         <RelativeLayout
             android:id="@+id/layout1"
-            android:background="@drawable/bg_main"
             android:layout_width="match_parent"
-            android:paddingHorizontal="24dp"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            android:background="@drawable/bg_main"
+            android:paddingHorizontal="24dp">
 
             <TextView
                 android:id="@+id/baseClassTextView"
-                android:textSize="16sp"
-                android:layout_alignParentStart="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
                 android:text="Giai Tich"
-                android:layout_marginLeft="16dp"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_alignParentLeft="true" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/phoneTextView"
-                android:textColor="#D9D9D9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_below="@id/baseClassTextView"
-                android:text="Phone: 0918199742"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="4dp"
+                android:text="Phone: 0918199742"
+                android:textColor="#D9D9D9"
+                android:textSize="12sp" />
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="28dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/birthDayTextView"
-                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:text="Total Student: 35"/>
+                    android:text="Total Student: 35"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/totalAbsentTextView"
-                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:layout_marginTop="4dp"
-                    android:text="Absent: 3"/>
+                    android:text="Absent: 3"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -102,32 +102,32 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/manualAttendSwitch"
-            android:layout_below="@id/layout1"
             android:layout_width="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_alignParentEnd="true"
-            android:text="Manual Roll Call"
             android:layout_height="wrap_content"
-            tools:ignore="UseSwitchCompatOrMaterialXml"
-            android:layout_alignParentRight="true" />
+            android:layout_below="@id/layout1"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:text="Manual Roll Call"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/studentRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/saveButton"
             android:layout_below="@id/manualAttendSwitch"
             android:layout_marginTop="16sp"
-            android:layout_above="@id/saveButton"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_marginBottom="8dp" />
 
         <Button
             android:id="@+id/saveButton"
-            android:layout_alignParentBottom="true"
-            android:text="save"
-            android:textColor="@color/white"
-            android:background="@drawable/buttons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/buttons"
+            android:text="save"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

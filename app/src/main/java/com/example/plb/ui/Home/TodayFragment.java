@@ -2,6 +2,10 @@ package com.example.plb.ui.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,12 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,21 +21,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plb.R;
 import com.example.plb.model.Schedule;
-import com.example.plb.model.Student;
 import com.example.plb.prevalent.Prevalent;
 import com.example.plb.ui.classroom.ClassRoomActivity;
-import com.example.plb.ui.result.StudentAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TodayFragment extends Fragment {
 
@@ -144,7 +137,7 @@ public class TodayFragment extends Fragment {
         super.onResume();
 
         if (check == 0) {
-            check ++;
+            check++;
         } else {
             mScheduleList.clear();
             getSchedule(url);

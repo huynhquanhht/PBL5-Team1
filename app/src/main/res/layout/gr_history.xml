@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_marginTop="8dp"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp">
 
     <ImageView
         android:id="@+id/cp1"
         android:layout_width="8dp"
         android:layout_height="8dp"
-        android:src="@drawable/ic_baseline_circle_24"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="32dp"
-        android:layout_marginLeft="8dp"/>
-    
+        android:src="@drawable/ic_baseline_circle_24" />
+
     <LinearLayout
-        android:layout_toRightOf="@id/cp1"
-        android:layout_marginLeft="16dp"
         android:id="@+id/ln1"
-        android:layout_marginTop="18dp"
         android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@id/cp1"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/dateTextView"
-            android:textStyle="bold"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="21/2/2021"/>
+            android:text="21/2/2021"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/timeTextView"
-            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="07:20 AM"/>
+            android:layout_marginTop="4dp"
+            android:text="07:20 AM"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginLeft="150dp"
-        android:padding="16dp"
-        android:background="@drawable/bg_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:background="@drawable/bg_recyclerview"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/subjectTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Vi dieu khien"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/codeClassTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="18n13"
             android:layout_below="@id/subjectTextView"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            android:text="18n13" />
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/totalStudentTextView"
-                android:text="Total: 32"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/totalAbsentTextView"
-                android:text="Vang 3"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true" />
+                android:text="Total: 32" />
+
+            <TextView
+                android:id="@+id/totalAbsentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:text="Vang 3" />
 
         </LinearLayout>
 

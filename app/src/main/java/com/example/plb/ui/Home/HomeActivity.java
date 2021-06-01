@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +20,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -36,9 +34,7 @@ import com.bumptech.glide.Glide;
 import com.example.plb.R;
 import com.example.plb.model.Info;
 import com.example.plb.model.Schedule;
-import com.example.plb.model.Student;
 import com.example.plb.prevalent.Prevalent;
-import com.example.plb.ui.classroom.ClassRoomActivity;
 import com.example.plb.ui.history.HistoryActivity;
 import com.example.plb.ui.infor.InforActivity;
 import com.example.plb.ui.login.MainActivity;
@@ -103,7 +99,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentManager fm;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,7 +116,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         getInfo(infoUrl);
 
     }
-
 
 
     public void getInfo(String url) {
@@ -224,14 +218,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 intent1.putExtra("subject", "");
                 startActivity(intent1);
                 break;
-            } case R.id.logout: {
+            }
+            case R.id.logout: {
                 Paper.book().destroy();
                 Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
 
-            } case R.id.nav_import_class: {
+            }
+            case R.id.nav_import_class: {
                 mClassFragment.show(fm, null);
                 break;
             }
@@ -250,7 +246,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = new Intent(HomeActivity.this, FilePickerActivity.class);
 
-        intent.putExtra(FilePickerActivity.CONFIGS , new Configurations.Builder()
+        intent.putExtra(FilePickerActivity.CONFIGS, new Configurations.Builder()
                 .setCheckPermission(true)
                 .setShowFiles(true)
                 .setShowImages(false)
@@ -323,7 +319,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Bug", error.toString());
                     }
-                }){
+                }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -362,7 +358,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Bug", error.toString());
                     }
-                }){
+                }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -393,7 +389,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             XSSFSheet sheet = workbook.getSheetAt(0);
             int rowsCount = sheet.getPhysicalNumberOfRows();
             FormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
-            for (int r = 7; r<55; r++) {
+            for (int r = 7; r < rowsCount; r++) {
                 Row row = sheet.getRow(r);
                 int cellsCount = row.getPhysicalNumberOfCells();
                 String value = getCellAsString(row, 1, formulaEvaluator);
@@ -415,21 +411,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             CellValue cellValue = formulaEvaluator.evaluate(cell);
             switch (cellValue.getCellType()) {
                 case Cell.CELL_TYPE_BOOLEAN:
-                    value = ""+cellValue.getBooleanValue();
+                    value = "" + cellValue.getBooleanValue();
                     break;
                 case Cell.CELL_TYPE_NUMERIC:
                     double numericValue = cellValue.getNumberValue();
-                    if(HSSFDateUtil.isCellDateFormatted(cell)) {
+                    if (HSSFDateUtil.isCellDateFormatted(cell)) {
                         double date = cellValue.getNumberValue();
                         SimpleDateFormat formatter =
                                 new SimpleDateFormat("dd/MM/yy");
                         value = formatter.format(HSSFDateUtil.getJavaDate(date));
                     } else {
-                        value = ""+numericValue;
+                        value = "" + numericValue;
                     }
                     break;
                 case Cell.CELL_TYPE_STRING:
-                    value = ""+cellValue.getStringValue();
+                    value = "" + cellValue.getStringValue();
                     break;
                 default:
             }

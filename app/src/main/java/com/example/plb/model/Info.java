@@ -9,7 +9,8 @@ public class Info {
     private String birthDay;
     private String url;
 
-    public Info() {}
+    public Info() {
+    }
 
     public Info(String id, String name, String email, String phone, String sex, String birthDay, String url) {
         this.id = id;

@@ -31,10 +31,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         mOnClickListener = onClickListener;
     }
 
-    public interface OnClickListener {
-        void onClick(Attendance attendance, int position);
-    }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,6 +46,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         return mAttendacnces.size();
+    }
+
+    public interface OnClickListener {
+        void onClick(Attendance attendance, int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,7 +68,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public void onBind(StudentAttend history, int position) {
 
-            SimpleDateFormat formatter5=new SimpleDateFormat("HH:mm:ss dd:MM:yyyy");
+            SimpleDateFormat formatter5 = new SimpleDateFormat("HH:mm:ss dd:MM:yyyy");
             try {
                 Date date = formatter5.parse(history.getTimeattend());
                 String Date = date.getDate() + ":" + (date.getMonth() + 1) + ":" + (date.getYear() + 1900);
