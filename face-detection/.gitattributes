@@ -1,0 +1,2 @@
+darknet53.conv.74 filter=lfs diff=lfs merge=lfs -text
+yolov4-custom_6000.weights filter=lfs diff=lfs merge=lfs -text
