@@ -1,4 +1,4 @@
-## Bước 1: chuẩn bị Dataset
+## Bước 1: Chuẩn bị Dataset
 + Link dataset: https://github.com/deepinsight/insightface/wiki/Dataset-Zoo</br>
 + Download dataset và giải nén tất cả file bên trong vào thư mục <b>recognition/data/faces_emore</b>, ta sẽ có cây thư mục như sau:<br/>
 <pre>
@@ -29,7 +29,7 @@
 + File weight sau khi hoàn tất train sẽ lưu tại <b>recognition/train/work_space/save</b>
 
 
-## Bước 4: chuẩn bị dữ liệu để tạo embedding vector gốc
+## Bước 4: Chuẩn bị dữ liệu để tạo embedding vector gốc
 Dữ liệu là các hình ảnh được cấu trúc như sau, số lượng ảnh không giới hạn:
 <pre>
 +----Recognition
