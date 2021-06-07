@@ -4,15 +4,15 @@
 <pre>
 +----data
 	+----faces_emore
-			+----train.rec
-			+----train.idx
-			+----agedb_30.bin
-			+----cfp_ff.bin
-			+----cfp_fp.bin
-			+----cfplw.bin
-			+----lfw.bin
-			+----vgg2_fp.bin
-			+----property
+		+----train.rec
+		+----train.idx
+		+----agedb_30.bin
+		+----cfp_ff.bin
+		+----cfp_fp.bin
+		+----cfplw.bin
+		+----lfw.bin
+		+----vgg2_fp.bin
+		+----property
 </pre>
 + Run: <code>python train/extract.py</code> để giải nén dữ liệu (quá trình này sẽ mất kha khá thời gian)
 
