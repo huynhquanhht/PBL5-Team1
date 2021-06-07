@@ -55,7 +55,7 @@ def get_time():
     return (str(datetime.now())[:-7]).replace(' ','-').replace(':','-')
 
 
-def prepare_facebank_non_face_detecter(conf, model, class_name, tta = True):
+def prepare_facebank_non_face_detector(conf, model, class_name, tta = True):
     model.eval()
     embeddings =  []
     names = []

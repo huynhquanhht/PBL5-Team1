@@ -31,18 +31,18 @@ class recog():
         if not self.embed_path.is_dir():
             self.embed_path.mkdir(parents=True, exist_ok=False)
             print("generating embedding file for {}".format(self.class_name))
-            self.embeddings, self.names = utils.prepare_facebank_non_face_detecter(conf,
+            self.embeddings, self.names = utils.prepare_facebank_non_face_detector(conf,
                                                                                    self.learner.model, self.class_name,  tta=True)
             print("finished generating embedding file")
         elif not Path(self.embed_path/'facebank.pth').is_file() or not Path(self.embed_path/'names.npy').is_file():
             print("generating embedding file for {} because embedding file or names file is missing".format(
                 self.class_name))
-            self.embeddings, self.names = utils.prepare_facebank_non_face_detecter(conf,
+            self.embeddings, self.names = utils.prepare_facebank_non_face_detector(conf,
                                                                                    self.learner.model, self.class_name,  tta=True)
             print("finished generating embedding file")
         elif args.update:
             print("updating embedding file for {}".format(self.class_name))
-            self.embeddings, self.names = utils.prepare_facebank_non_face_detecter(conf,
+            self.embeddings, self.names = utils.prepare_facebank_non_face_detector(conf,
                                                                                    self.learner.model, self.class_name,  tta=True)
             print("finished updating embedding file")
         else:
