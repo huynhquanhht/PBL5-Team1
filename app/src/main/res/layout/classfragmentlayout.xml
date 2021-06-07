@@ -3,33 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <EditText
-        android:id="@+id/nameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter name class" />
-
-    <EditText
-        android:id="@+id/codeClassEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Enter code Class" />
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/timeStartEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
+        android:padding="12dp"
+        android:background="@drawable/input"
         android:hint="Enter Time Start" />
 
     <EditText
         android:id="@+id/timeEndEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@drawable/input"
         android:layout_marginTop="16dp"
         android:hint="Enter Time End" />
 
@@ -38,6 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:padding="12dp"
+        android:background="@drawable/input"
         android:hint="Enter Room" />
 
     <LinearLayout
@@ -54,6 +46,8 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:text="Cancel"
+            android:textColor="@color/white"
+            android:background="@drawable/bgbutton"
             android:textAllCaps="false" />
 
         <Button
@@ -65,6 +59,8 @@
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:text="Apply"
+            android:textColor="@android:color/holo_red_dark"
+            android:background="@drawable/bgbutton"
             android:textAllCaps="false"
             tools:ignore="ButtonStyle" />
 

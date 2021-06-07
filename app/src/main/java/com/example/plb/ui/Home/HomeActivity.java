@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,6 +64,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.paperdb.Paper;
 import io.reactivex.Observable;
@@ -228,7 +230,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             }
             case R.id.nav_import_class: {
-                mClassFragment.show(fm, null);
+
+                Intent intent = new Intent(HomeActivity.this, FilePickerActivity.class);
+
+                intent.putExtra(FilePickerActivity.CONFIGS, new Configurations.Builder()
+                        .setCheckPermission(true)
+                        .setShowFiles(true)
+                        .setShowImages(false)
+                        .setShowVideos(false)
+                        .setMaxSelection(1)
+                        .setSuffixes("xlsx")
+                        .setSkipZeroSizeFiles(true)
+                        .build());
+
+                startActivityForResult(intent, 102);
+
                 break;
             }
 
@@ -239,26 +255,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void applyFile(String name, String code, String timestart, String timend, String room) {
-
-        baseClass = code;
-        updateSchdedule(name, timestart, timend, room, "2", "48", code);
-
-        Intent intent = new Intent(HomeActivity.this, FilePickerActivity.class);
-
-        intent.putExtra(FilePickerActivity.CONFIGS, new Configurations.Builder()
-                .setCheckPermission(true)
-                .setShowFiles(true)
-                .setShowImages(false)
-                .setShowVideos(false)
-                .setMaxSelection(1)
-                .setSuffixes("xlsx")
-                .setSkipZeroSizeFiles(true)
-                .build());
-
-        startActivityForResult(intent, 102);
+    public void applyFile(String timestart, String timend, String room) {
 
 
+    }
+
+    @Override
+    public void onClick(String timeStart, String timeEnd, String room) {
     }
 
     @Override
@@ -389,9 +392,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             XSSFSheet sheet = workbook.getSheetAt(0);
             int rowsCount = sheet.getPhysicalNumberOfRows();
             FormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
-            for (int r = 7; r < rowsCount; r++) {
+
+            Row rowClass = sheet.getRow(4);
+            String nameClass = getCellAsString(rowClass, 0, formulaEvaluator);
+            String[] strings = nameClass.split((":"))[1].split("\\(");
+            String name = strings[0];
+            String code = strings[1];
+            name = name.replaceFirst(" ", "");
+            code = code.substring(0, code.length() - 1);
+
+            baseClass = code;
+
+            updateSchdedule(name, "", "", "", "", "48", code);
+
+            Thread.sleep(1500);
+
+
+            for (int r = 7; r < rowsCount - 1; r++) {
                 Row row = sheet.getRow(r);
-                int cellsCount = row.getPhysicalNumberOfCells();
                 String value = getCellAsString(row, 1, formulaEvaluator);
                 String value2 = getCellAsString(row, 2, formulaEvaluator);
                 String value3 = getCellAsString(row, 3, formulaEvaluator);

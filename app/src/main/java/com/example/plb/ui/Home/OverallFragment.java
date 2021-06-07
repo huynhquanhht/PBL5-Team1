@@ -1,15 +1,18 @@
 package com.example.plb.ui.Home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,10 +28,12 @@ import com.example.plb.model.Schedule;
 import com.example.plb.prevalent.Prevalent;
 import com.example.plb.ui.classroom.ClassRoomActivity;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,14 +42,17 @@ import java.util.List;
 import java.util.Map;
 
 
-public class OverallFragment extends Fragment {
+public class OverallFragment extends Fragment{
 
     private final String url = "http://103.151.123.96:8000/schedule/";
+    private final String urlrpdate = "http://103.151.123.96:8000/schedule/update/";
 
     private RecyclerView mScheduleRecyclerView;
     private List<Schedule> mScheduleList;
     private ScheduleOverallAdapter mScheduleAdapter;
+    private String id;
     private int i = 0;
+    private Schedule mSchedule;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,25 @@ public class OverallFragment extends Fragment {
         mScheduleAdapter = new ScheduleOverallAdapter(mScheduleList);
         mScheduleRecyclerView.setAdapter(mScheduleAdapter);
 
+        ClassFragment classFragment = new ClassFragment();
+        classFragment.setNoticeDialogListener(new ClassFragment.NoticeDialogListener() {
+            @Override
+            public void applyFile(String timeStart, String timeend, String room) {
+
+            }
+
+            @Override
+            public void onClick(String timeStart, String timeEnd, String room) {
+                updateSchedule(mSchedule, urlrpdate, timeStart, timeEnd, room);
+            }
+
+            @Override
+            public void resetSchedule() {
+
+            }
+        });
+        FragmentManager fm = getFragmentManager();
+
         mScheduleAdapter.setOnClickListener(new ScheduleOverallAdapter.OnClickListener() {
             @Override
             public void onClick(Schedule schedule, int position) {
@@ -79,6 +106,13 @@ public class OverallFragment extends Fragment {
                 intent.putExtra("subject", schedule.getSubject());
                 intent.putExtra("total", schedule.getTotal());
                 startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(Schedule schedule, int postition) {
+                classFragment.show(fm, null);
+                mSchedule = schedule;
+                id = schedule.getId();
             }
         });
     }
@@ -99,7 +133,7 @@ public class OverallFragment extends Fragment {
                         JSONObject explrObject = jsonArray.getJSONObject(i);
                         mScheduleList.add(new Schedule(
                                 explrObject.getString("id"),
-                                explrObject.getString("subject"),
+                                new String(explrObject.getString("subject").getBytes("ISO-8859-1"), "UTF-8"),
                                 explrObject.getString("codeclass"),
                                 explrObject.getString("timestart"),
                                 explrObject.getString("timeend"),
@@ -112,7 +146,7 @@ public class OverallFragment extends Fragment {
 
                     mScheduleAdapter.notifyDataSetChanged();
 
-                } catch (JSONException e) {
+                } catch (JSONException | UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 
@@ -149,4 +183,42 @@ public class OverallFragment extends Fragment {
         mScheduleList.clear();
         getSchedule(url);
     }
+
+    public void updateSchedule(Schedule schedule,String url, String timestart, String timeend, String room) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+
+        String link = urlrpdate + id + "/";
+
+        StringRequest request = new StringRequest(Request.Method.PATCH, link, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Intent intent = new Intent(getActivity(), ClassRoomActivity.class);
+                intent.putExtra("class", schedule.getId());
+                intent.putExtra("codeclass", schedule.getCodeclass());
+                intent.putExtra("subject", schedule.getSubject());
+                intent.putExtra("total", schedule.getTotal());
+                startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("OveralBug", error.toString());
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("timestart", timestart);
+                params.put("timeend", timeend);
+                params.put("room", room);
+                return params;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+
 }

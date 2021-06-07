@@ -46,6 +46,7 @@ public class ScheduleOverallAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public interface OnClickListener {
         void onClick(Schedule schedule, int position);
+        void onLongClick(Schedule schedule, int postition);
     }
 
     class ScheduleViewHolder extends RecyclerView.ViewHolder {
@@ -86,11 +87,13 @@ public class ScheduleOverallAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 timeStart.setText("Friday");
             } else if (serial.equals("7")) {
                 timeStart.setText("Saturday");
+            } else {
+                timeStart.setText(" ");
             }
 
             timeEnd.setVisibility(View.GONE);
             subject.setText(schedule.getSubject());
-            codeSubject.setText(schedule.getId());
+            codeSubject.setText(schedule.getCodeclass());
             room.setText(schedule.getRoom());
             total.setText("Total: " + schedule.getTotal());
 
@@ -98,6 +101,13 @@ public class ScheduleOverallAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 @Override
                 public void onClick(View v) {
                     mOnClickListener.onClick(schedule, position);
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mOnClickListener.onLongClick(schedule, position);
+                    return true;
                 }
             });
         }

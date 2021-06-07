@@ -22,22 +22,16 @@ public class ClassFragment extends DialogFragment {
 
     private NoticeDialogListener mNoticeDialogListener;
 
-    private EditText mNameEditText;
-    private EditText mCodeClassEditText;
     private EditText mTimeStart;
     private EditText mTimeEnd;
     private EditText mRoom;
     private Button mCancelButton;
     private Button mApplyButton;
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
 
-        if (context instanceof NoticeDialogListener) {
-            mNoticeDialogListener = (NoticeDialogListener) context;
-        }
 
+    public void setNoticeDialogListener(NoticeDialogListener noticeDialogListener) {
+        mNoticeDialogListener = noticeDialogListener;
     }
 
     @Nullable
@@ -52,8 +46,6 @@ public class ClassFragment extends DialogFragment {
 
         mCancelButton = view.findViewById(R.id.cancelButton);
         mApplyButton = view.findViewById(R.id.applyButton);
-        mNameEditText = view.findViewById(R.id.nameEditText);
-        mCodeClassEditText = view.findViewById(R.id.codeClassEditText);
         mTimeStart = view.findViewById(R.id.timeStartEditText);
         mTimeEnd = view.findViewById(R.id.timeEndEditText);
         mRoom = view.findViewById(R.id.roomEditText);
@@ -63,17 +55,14 @@ public class ClassFragment extends DialogFragment {
         });
 
         mApplyButton.setOnClickListener(v -> {
-            String name = mNameEditText.getText().toString().trim();
-            String code = mCodeClassEditText.getText().toString().trim();
             String timestart = mTimeStart.getText().toString().trim();
             String timeend = mTimeEnd.getText().toString().trim();
             String room = mRoom.getText().toString().trim();
 
-            if (name.isEmpty() || code.isEmpty() || timestart.isEmpty()
-                    || timeend.isEmpty() || room.isEmpty()) {
+            if (timestart.isEmpty() || timeend.isEmpty() || room.isEmpty()) {
                 Toast.makeText(getActivity(), "Please Enter Data!!", Toast.LENGTH_SHORT).show();
             } else {
-                mNoticeDialogListener.applyFile(name, code, timestart, timeend, room);
+                mNoticeDialogListener.onClick(timestart, timeend, room);
                 getDialog().dismiss();
             }
         });
@@ -89,8 +78,8 @@ public class ClassFragment extends DialogFragment {
     }
 
     public interface NoticeDialogListener {
-        void applyFile(String name, String code, String timeStart, String timeend, String room);
-
+        void applyFile(String timeStart, String timeend, String room);
+        void onClick(String timeStart, String timeEnd, String room);
         void resetSchedule();
     }
 
