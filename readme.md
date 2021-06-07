@@ -17,19 +17,13 @@
 + Run: <code>python train/extract.py</code> để giải nén dữ liệu (quá trình này sẽ mất kha khá thời gian)
 
 
-
-## Bước 2: Config
-+ Tại thư mục <b>recognition/config/</b>, chỉnh sửa nội dung file <b>config.py</b> cho phù hợp
-
-
-
-## Bước 3: Train
+## Bước 2: Train
 + Run: <code>python train.py</code>, để huấn luyện mô hình</br>
 + Trong quá trình train sẽ lưu lại các </b>file weight</b> tại một số thời điểm để tiện cho việc train lại, các file này được lưu tại <b>recognition/train/workspace/models</b></br>
 + File weight sau khi hoàn tất train sẽ lưu tại <b>recognition/train/work_space/save</b>
 
 
-## Bước 4: Chuẩn bị dữ liệu để tạo embedding vector gốc
+## Bước 3: Chuẩn bị dữ liệu để tạo embedding vector gốc
 Dữ liệu là các hình ảnh được cấu trúc như sau, số lượng ảnh không giới hạn:
 <pre>
 +----Recognition
@@ -50,7 +44,7 @@ Dữ liệu là các hình ảnh được cấu trúc như sau, số lượng �
 
 
 
-## Bước 5: Nhận diện
+## Bước 4: Nhận diện
 + Lưu ảnh muốn nhận ở thư mục <b>recognition/input_face/detect/>class_name>/<file_name.jpg></b></br>
 + Chỉnh sửa tên file ảnh muốn detect tại hàm detect face của face detector sau đó lưu ảnh được detect vào <b>recognition/input_face/detect/<class_name></b></br>
 + Chọn file weight rồi lưu vào tại <b>recognition/train/workspace/save</b></br>
