@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bgLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:weightSum="10">
+
+    <TextView
+        android:id="@+id/classTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:text="Giai tich - 18N13"
+        android:textSize="18sp" />
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/chooseImageView"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_weight="2"-->
+    <!--        android:src="@drawable/ic_baseline_check_circle_24"/>-->
+
+</LinearLayout>

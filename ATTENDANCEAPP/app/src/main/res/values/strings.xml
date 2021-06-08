@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">PLB</string>
+    <string name="ma_tk">Mã tài khoản</string>
+    <string name="pass">Mật Khẩu</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forget_password">Forget password</string>
+    <string name="login">Login</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_class">Lớp học</string>
+    <string name="title_student">Sinh viên</string>
+    <string name="title_infor">Thông tin cá nhân</string>
+    <string name="log_out">Log Out</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="history_of_class">History of Class</string>
+    <string name="attendance">Attendance</string>
+    <string name="student_32">Student: 32</string>
+    <string name="subject_nguyen_ly_2">Subject: Nguyen Ly 2</string>
+    <string name="class1">Class</string>
+    <string name="history">History</string>
+    <string name="schedule">Schedule</string>
+    <string name="le_truong_sanh">Le Truong Sanh</string>
+    <string name="phone_0918199742">Phone: 0918199742</string>
+    <string name="birthday_15_2_2000">Birthday: 15/2/2000</string>
+    <string name="profile">Profile</string>
+    <string name="user_name">User Name</string>
+    <string name="email">Email</string>
+    <string name="sanhlttasjd_gmail_com">sanhlttasjd@gmail.com</string>
+    <string name="phone">Phone</string>
+    <string name="_0388214234">0388214234</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="_10_4_2000">10/4/2000</string>
+</resources>
